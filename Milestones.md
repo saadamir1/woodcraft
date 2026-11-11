@@ -31,11 +31,15 @@
 - Live Neon settings updated; COD + manual wallets both on
 - Auto payment gateway still off (needs merchant approval later)
 
-## 8. Next (you)
+## 8. 2026-11-11 — Personal GitHub + auto-deploy
+- Repo: https://github.com/saadamir1/woodcraft (personal only)
+- Vercel project `woodcraft` connected → push to `master` redeploys
+- Git identity local: saadamir1 / saadamir070@gmail.com
+
+## 9. Next (you)
 - Meta Pixel IDs + Groq key
 - Custom domain / commercial plan if selling
 - Optional WhatsApp Business app on same number
 - Gateway merchant application
 - Daraz validation of SKUs
-- Push to personal GitHub (`saadamir1`) when ready
 - Rotate Neon DB password (was shown in CLI earlier)

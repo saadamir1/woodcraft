@@ -15,3 +15,5 @@
 - Vercel project `woodcraft` → https://woodcraft-phi.vercel.app (Hobby; PC can be off)
 - Prod env: DATABASE_URL (Neon pooler), AUTH_SECRET, NEXTAUTH_URL, NEXT_PUBLIC_SITE_URL
 - Build: `prepare-prod-schema.mjs` + `prisma db push` + seed (skip if products exist)
+- GitHub (personal): https://github.com/saadamir1/woodcraft — Vercel git connected; push `master` auto-deploys
+- gh CLI: `D:\MYAPPS\tools\gh\gh.exe` (logged in as saadamir1)
