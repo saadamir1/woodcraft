@@ -1,40 +1,83 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
-import { ProductCard } from "@/components/product-card";
+import { getSettings } from "@/lib/settings";
+import { formatPkr } from "@/lib/utils";
 import { HomeHeroMedia } from "@/components/home-hero-media";
+import {
+  HomeCategories,
+  HomeCraftStory,
+  HomeDealBanner,
+  HomeFaq,
+  HomeFeaturedGrid,
+  HomeTestimonials,
+  HomeTrust,
+  HomeWhatsAppCta,
+} from "@/components/home-enrichment";
+import { Reveal } from "@/components/reveal";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [featured, testimonials, recentCount] = await Promise.all([
-    prisma.product.findMany({
-      where: { visible: true, featured: true },
-      take: 8,
-      orderBy: { updatedAt: "desc" },
-    }),
-    prisma.testimonial.findMany({ where: { visible: true }, take: 3 }),
-    prisma.order.count({
-      where: {
-        status: { in: ["CONFIRMED", "PACKED", "SHIPPED", "DELIVERED"] },
-        createdAt: { gte: new Date(Date.now() - 14 * 86400000) },
-      },
-    }),
-  ]);
+  const settings = await getSettings();
+  const [featured, testimonials, recentCount, categories, saleProduct] =
+    await Promise.all([
+      prisma.product.findMany({
+        where: { visible: true, featured: true },
+        take: 8,
+        orderBy: { updatedAt: "desc" },
+      }),
+      prisma.testimonial.findMany({ where: { visible: true }, take: 3 }),
+      prisma.order.count({
+        where: {
+          status: { in: ["CONFIRMED", "PACKED", "SHIPPED", "DELIVERED"] },
+          createdAt: { gte: new Date(Date.now() - 14 * 86400000) },
+        },
+      }),
+      prisma.category.findMany({
+        include: { _count: { select: { products: { where: { visible: true } } } } },
+        orderBy: { name: "asc" },
+      }),
+      prisma.product.findFirst({
+        where: {
+          visible: true,
+          NOT: { compareAt: null },
+        },
+        orderBy: [{ featured: "desc" }, { updatedAt: "desc" }],
+      }),
+    ]);
+
+  const catCards = categories.map((c) => ({
+    slug: c.slug,
+    name: c.name,
+    description: c.description,
+    count: c._count.products,
+  }));
+
+  const deal =
+    saleProduct &&
+    saleProduct.compareAt &&
+    saleProduct.compareAt > saleProduct.pricePkr
+      ? saleProduct
+      : null;
 
   return (
     <div>
       <section className="relative overflow-hidden">
-        <div className="mx-auto max-w-6xl px-4 py-10 sm:py-16 grid lg:grid-cols-2 gap-8 items-center">
-          <div>
+        <div className="pointer-events-none absolute inset-0 opacity-40">
+          <div className="absolute -top-24 -left-16 size-72 rounded-full bg-amber/15 blur-3xl" />
+          <div className="absolute top-20 right-0 size-80 rounded-full bg-sage/10 blur-3xl" />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-4 py-12 sm:py-16 lg:py-20 grid lg:grid-cols-2 gap-10 items-center">
+          <Reveal>
             <p className="text-sage-deep font-semibold text-sm tracking-wide uppercase">
-              Pakistan · COD friendly
+              Pakistan · COD friendly · Gobox
             </p>
             <h1 className="mt-3 font-display text-4xl sm:text-5xl lg:text-6xl text-walnut leading-[1.05]">
               Wood that feels like home
             </h1>
-            <p className="mt-4 text-muted text-base sm:text-lg max-w-md">
-              Kitchen boards, spice boxes, trays, and gentle wooden toys — warm pieces
-              for everyday living.
+            <p className="mt-4 text-muted text-base sm:text-lg max-w-md leading-relaxed">
+              Kitchen boards, spice boxes, trays, and gentle wooden toys — warm pieces for
+              everyday living, with COD and WhatsApp support.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/shop" className="btn btn-primary">
@@ -44,48 +87,37 @@ export default async function HomePage() {
                 Our story
               </Link>
             </div>
+            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+              <span>Free delivery over {formatPkr(settings.freeDeliveryThresholdPkr)}</span>
+              <span className="hidden sm:inline text-border">·</span>
+              <span>JazzCash / Easypaisa</span>
+              <span className="hidden sm:inline text-border">·</span>
+              <span>WhatsApp 0327 5695299</span>
+            </div>
             {recentCount > 0 ? (
-              <p className="mt-5 text-sm text-muted">
+              <p className="mt-4 text-sm text-muted">
                 <span className="font-semibold text-sage-deep">{recentCount}</span>{" "}
-                real orders confirmed in the last 2 weeks
+                orders confirmed in the last 2 weeks
               </p>
-            ) : (
-              <p className="mt-5 text-sm text-muted">
-                Free delivery over Rs 7,000 · Secure COD checkout
-              </p>
-            )}
-          </div>
-          <HomeHeroMedia />
+            ) : null}
+          </Reveal>
+          <Reveal delay={0.1}>
+            <HomeHeroMedia />
+          </Reveal>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-8">
-        <div className="flex items-end justify-between gap-3 mb-5">
-          <h2 className="font-display text-3xl text-walnut">Featured pieces</h2>
-          <Link href="/shop" className="text-sm font-semibold text-sage-deep">
-            View all
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          {featured.map((p, i) => (
-            <ProductCard key={p.id} product={p} index={i} />
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-4 py-10">
-        <h2 className="font-display text-3xl text-walnut mb-5">What customers say</h2>
-        <div className="grid sm:grid-cols-3 gap-4">
-          {testimonials.map((t) => (
-            <blockquote key={t.id} className="card p-5">
-              <p className="text-sm leading-relaxed">“{t.quote}”</p>
-              <footer className="mt-3 text-xs font-semibold text-muted">
-                {t.name} · {t.city}
-              </footer>
-            </blockquote>
-          ))}
-        </div>
-      </section>
+      <HomeTrust freeDeliveryThresholdPkr={settings.freeDeliveryThresholdPkr} />
+      <HomeDealBanner
+        product={deal}
+        threshold={settings.freeDeliveryThresholdPkr}
+      />
+      <HomeCategories categories={catCards} />
+      <HomeFeaturedGrid products={featured} />
+      <HomeCraftStory />
+      <HomeTestimonials items={testimonials} />
+      <HomeFaq />
+      <HomeWhatsAppCta whatsappNumber={settings.whatsappNumber} />
     </div>
   );
 }

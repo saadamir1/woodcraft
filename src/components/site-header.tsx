@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ShoppingBag, Search } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
 import { motion, AnimatePresence } from "motion/react";
+import { PromoMarquee } from "@/components/promo-marquee";
 
 export function SiteHeader({
   brandName,
@@ -14,14 +15,16 @@ export function SiteHeader({
 }) {
   const count = useCart((s) => s.items.reduce((n, i) => n + i.qty, 0));
   const setOpen = useCart((s) => s.setOpen);
+  const promoMessages = [
+    announcement,
+    "Free delivery over Rs 7,000 · COD nationwide",
+    "JazzCash & Easypaisa on 0327 5695299",
+    "Gift-ready kitchen sets · wooden toys with gentle edges",
+  ].filter(Boolean) as string[];
 
   return (
     <header className="sticky top-0 z-40 backdrop-blur-md bg-[color-mix(in_srgb,var(--cream)_88%,transparent)] border-b border-border">
-      {announcement ? (
-        <div className="bg-walnut text-cream text-center text-xs sm:text-sm py-2 px-3">
-          {announcement}
-        </div>
-      ) : null}
+      <PromoMarquee messages={promoMessages} />
       <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between gap-3">
         <Link href="/" className="font-display text-xl text-walnut tracking-tight">
           {brandName}

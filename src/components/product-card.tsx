@@ -44,11 +44,16 @@ export function ProductCard({ product, index = 0 }: Props) {
           sizes="(max-width:768px) 50vw, 25vw"
           className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
-        {low ? (
-          <span className="badge absolute top-3 left-3 bg-amber text-white">
-            Low stock
-          </span>
-        ) : null}
+        <div className="absolute top-3 left-3 flex flex-col gap-1.5 items-start z-[1]">
+          {product.compareAt && product.compareAt > product.pricePkr ? (
+            <span className="badge bg-amber text-white">
+              −{Math.round(((product.compareAt - product.pricePkr) / product.compareAt) * 100)}%
+            </span>
+          ) : null}
+          {low ? (
+            <span className="badge bg-walnut text-cream">Low stock</span>
+          ) : null}
+        </div>
       </Link>
       <div className="p-3 sm:p-4 space-y-2">
         <Link href={`/product/${product.slug}`} className="block">

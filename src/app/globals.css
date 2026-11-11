@@ -189,6 +189,10 @@ a {
   }
 }
 
+details summary::-webkit-details-marker {
+  display: none;
+}
+
 .pb-nav {
   padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
 }

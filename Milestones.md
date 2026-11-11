@@ -36,7 +36,12 @@
 - Vercel project `woodcraft` connected → push to `master` redeploys
 - Git identity local: saadamir1 / saadamir070@gmail.com
 
-## 9. Next (you)
+## 9. 2026-11-11 — Home + PDP e-com depth
+- Rotating promo banner, trust strip, categories, deal band
+- Craft story, FAQ, WhatsApp CTA; PDP specs / promises / sale badges
+- Motion reveals — wood palette kept (no loud template look)
+
+## 10. Next (you)
 - Meta Pixel IDs + Groq key
 - Custom domain / commercial plan if selling
 - Optional WhatsApp Business app on same number
