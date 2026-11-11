@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WoodCraft — mobile-first wood store (Pakistan)
 
-## Getting Started
+Personal MVP: wooden kitchen + toys, COD-first checkout, Meta ads ready.
 
-First, run the development server:
+## Quick start
 
 ```bash
+cd D:\MYAPPS\wood-store
+npm install
+npm run db:push
+npm run db:seed
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3001
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Admin: `admin@woodcraft.pk` / `admin123`
+- Staff: `staff@woodcraft.pk` / `staff123`
+- Discount: `WELCOME10`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Env
 
-## Learn More
+Copy `.env.example` → `.env`. Optional: `GROQ_API_KEY`, `NEXT_PUBLIC_META_PIXEL_ID`, `META_CAPI_ACCESS_TOKEN`.
 
-To learn more about Next.js, take a look at the following resources:
+## Production notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Swap `DATABASE_URL` to Neon Postgres.
+- Do **not** host a live store on Vercel Hobby (non-commercial). Use VPS/Coolify or Vercel Pro.
+- Apply early for Safepay/PayFast merchant; Phase 1 works with COD + manual wallets.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Git
 
-## Deploy on Vercel
+Local commits as `saadamir1` / `saadamir070@gmail.com`. Push to personal GitHub when you choose.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Docs
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `DECISIONS.md` — stack reasoning
+- `CURSOR_BRIEF.md` — product brief
+- `Milestones.md` — progress
+- `terminal-trace.md` — install/run notes
