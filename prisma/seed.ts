@@ -3,8 +3,7 @@ import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-const PLACEHOLDER = (id: string) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=800&q=80`;
+const img = (slug: string) => `/products/${slug}.svg`;
 
 async function main() {
   await prisma.orderItem.deleteMany();
@@ -72,7 +71,7 @@ async function main() {
       stock: 24,
       featured: true,
       hero3d: true,
-      imageUrl: PLACEHOLDER("photo-1556909114-f6e7ad7d3136"),
+      imageUrl: img("walnut-cutting-board"),
       categoryId: kitchen.id,
     },
     {
@@ -85,7 +84,7 @@ async function main() {
       pricePkr: 2450,
       stock: 30,
       featured: true,
-      imageUrl: PLACEHOLDER("photo-1596040033229-a9821ebd058d"),
+      imageUrl: img("spice-box-6"),
       categoryId: kitchen.id,
     },
     {
@@ -98,7 +97,7 @@ async function main() {
       pricePkr: 2100,
       stock: 18,
       featured: true,
-      imageUrl: PLACEHOLDER("photo-1610701596007-11502861dcfa"),
+      imageUrl: img("serving-tray-oval"),
       categoryId: kitchen.id,
     },
     {
@@ -110,7 +109,7 @@ async function main() {
       care: "Oil lightly after wash.",
       pricePkr: 2800,
       stock: 12,
-      imageUrl: PLACEHOLDER("photo-1509440159596-0249088772ff"),
+      imageUrl: img("bread-board"),
       categoryId: kitchen.id,
     },
     {
@@ -122,7 +121,7 @@ async function main() {
       care: "Keep dry.",
       pricePkr: 950,
       stock: 40,
-      imageUrl: PLACEHOLDER("photo-1590794056226-79ef3a8147e1"),
+      imageUrl: img("salt-cellar"),
       categoryId: kitchen.id,
     },
     {
@@ -134,7 +133,7 @@ async function main() {
       care: "Wipe clean.",
       pricePkr: 1650,
       stock: 22,
-      imageUrl: PLACEHOLDER("photo-1556911220-bff31c28c27e"),
+      imageUrl: img("utensil-crock"),
       categoryId: kitchen.id,
     },
     {
@@ -148,7 +147,7 @@ async function main() {
       stock: 8,
       lowStockAt: 5,
       featured: true,
-      imageUrl: PLACEHOLDER("photo-1578500494198-246f612d3b3d"),
+      imageUrl: img("salad-bowl"),
       categoryId: kitchen.id,
     },
     {
@@ -160,7 +159,7 @@ async function main() {
       care: "Wipe spills promptly.",
       pricePkr: 890,
       stock: 50,
-      imageUrl: PLACEHOLDER("photo-1616486338812-3dadae4b4ace"),
+      imageUrl: img("coaster-set-4"),
       categoryId: gift.id,
     },
     {
@@ -172,7 +171,7 @@ async function main() {
       care: "Do not soak.",
       pricePkr: 1200,
       stock: 25,
-      imageUrl: PLACEHOLDER("photo-1625948515291-69613efd103f"),
+      imageUrl: img("rolling-pin"),
       categoryId: kitchen.id,
     },
     {
@@ -185,7 +184,7 @@ async function main() {
       pricePkr: 1850,
       stock: 20,
       featured: true,
-      imageUrl: PLACEHOLDER("photo-1515488042361-ee00e0ddd4e4"),
+      imageUrl: img("toy-stacking-rings"),
       categoryId: toys.id,
     },
     {
@@ -198,7 +197,7 @@ async function main() {
       pricePkr: 2600,
       stock: 15,
       featured: true,
-      imageUrl: PLACEHOLDER("photo-1587654780291-39c9404d746b"),
+      imageUrl: img("toy-block-set"),
       categoryId: toys.id,
     },
     {
@@ -210,7 +209,7 @@ async function main() {
       care: "Wipe clean.",
       pricePkr: 750,
       stock: 35,
-      imageUrl: PLACEHOLDER("photo-1566576912321-d58ddd7a6088"),
+      imageUrl: img("toy-rattle"),
       categoryId: toys.id,
     },
     {
@@ -222,7 +221,7 @@ async function main() {
       care: "Wipe wheels free of dust.",
       pricePkr: 1400,
       stock: 18,
-      imageUrl: PLACEHOLDER("photo-1596461404969-9ae70f2830c1"),
+      imageUrl: img("toy-car"),
       categoryId: toys.id,
     },
     {
@@ -234,7 +233,7 @@ async function main() {
       care: "Wipe dry.",
       pricePkr: 1950,
       stock: 14,
-      imageUrl: PLACEHOLDER("photo-1564429238811-7db0c477cfc9"),
+      imageUrl: img("toy-puzzle-animals"),
       categoryId: toys.id,
     },
     {
@@ -248,7 +247,7 @@ async function main() {
       compareAt: 5800,
       stock: 10,
       featured: true,
-      imageUrl: PLACEHOLDER("photo-1549465220-1a8b9238cd48"),
+      imageUrl: img("gift-box-kitchen"),
       categoryId: gift.id,
     },
     {
@@ -260,7 +259,7 @@ async function main() {
       care: "Dust regularly.",
       pricePkr: 2300,
       stock: 9,
-      imageUrl: PLACEHOLDER("photo-1595428774223-ef52624120d2"),
+      imageUrl: img("wall-shelf-small"),
       categoryId: gift.id,
     },
   ];

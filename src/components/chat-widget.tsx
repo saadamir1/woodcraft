@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { MessageSquareText, Send, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { formatPkr, waLink } from "@/lib/utils";
 import { useCart } from "@/lib/cart-store";
+import { SafeImage } from "@/components/safe-image";
 
 type ChatProduct = {
   id: string;
@@ -31,6 +31,7 @@ export function ChatWidget({
 }) {
   const pathname = usePathname();
   const add = useCart((s) => s.add);
+  const cartOpen = useCart((s) => s.open);
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -41,7 +42,7 @@ export function ChatWidget({
     },
   ]);
 
-  if (!enabled || pathname.startsWith("/admin")) return null;
+  if (!enabled || pathname.startsWith("/admin") || cartOpen) return null;
 
   async function send() {
     const text = input.trim();
@@ -79,16 +80,18 @@ export function ChatWidget({
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="fixed z-30 bottom-20 left-4 md:bottom-6 md:left-6 size-12 rounded-full bg-walnut text-cream shadow-lg flex items-center justify-center"
-        aria-label="Open product chatbot"
-      >
-        <MessageSquareText className="size-5" />
-      </button>
+      {!open ? (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="fixed z-30 bottom-[5.25rem] left-3 md:bottom-6 md:left-6 size-11 rounded-full bg-walnut text-cream shadow-lg flex items-center justify-center"
+          aria-label="Open product chatbot"
+        >
+          <MessageSquareText className="size-5" />
+        </button>
+      ) : null}
       {open ? (
-        <div className="fixed z-50 inset-x-3 bottom-24 md:inset-auto md:bottom-24 md:left-6 md:w-[360px] card overflow-hidden flex flex-col max-h-[70vh]">
+        <div className="fixed z-50 inset-x-3 bottom-[5.5rem] md:inset-auto md:bottom-24 md:left-6 md:w-[360px] card overflow-hidden flex flex-col max-h-[65vh]">
           <div className="flex items-center justify-between px-3 py-3 bg-walnut text-cream">
             <div>
               <p className="font-semibold text-sm">WoodCraft helper</p>
@@ -117,7 +120,7 @@ export function ChatWidget({
                         className="flex gap-2 items-center rounded-xl bg-cream-2 p-2"
                       >
                         <div className="relative size-12 rounded-lg overflow-hidden">
-                          <Image src={p.imageUrl} alt={p.name} fill className="object-cover" />
+                          <SafeImage src={p.imageUrl} alt={p.name} fill className="object-cover" />
                         </div>
                         <div className="min-w-0 flex-1">
                           <Link href={`/product/${p.slug}`} className="font-medium text-xs line-clamp-1">

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
@@ -7,7 +6,7 @@ import { formatPkr } from "@/lib/utils";
 import { ProductCard } from "@/components/product-card";
 import { AddToCartSticky } from "@/components/add-to-cart-sticky";
 import { ProductViewTracker } from "@/components/product-view-tracker";
-import { TiltCard } from "@/components/tilt-card";
+import { ProductHeroImage } from "@/components/product-hero-image";
 
 export const dynamic = "force-dynamic";
 
@@ -82,31 +81,11 @@ export default async function ProductPage({
         slug={product.slug}
       />
       <div className="grid lg:grid-cols-2 gap-8">
-        {product.hero3d ? (
-          <TiltCard>
-            <div className="relative aspect-square rounded-3xl overflow-hidden border border-border bg-cream-2">
-              <Image
-                src={product.imageUrl}
-                alt={product.name}
-                fill
-                priority
-                className="object-cover"
-                sizes="(max-width:1024px) 100vw, 50vw"
-              />
-            </div>
-          </TiltCard>
-        ) : (
-          <div className="relative aspect-square rounded-3xl overflow-hidden border border-border bg-cream-2">
-            <Image
-              src={product.imageUrl}
-              alt={product.name}
-              fill
-              priority
-              className="object-cover"
-              sizes="(max-width:1024px) 100vw, 50vw"
-            />
-          </div>
-        )}
+        <ProductHeroImage
+          src={product.imageUrl}
+          alt={product.name}
+          tilt={product.hero3d}
+        />
         <div>
           <p className="text-sm font-semibold text-sage-deep">
             <Link href={`/shop?category=${product.category.slug}`}>

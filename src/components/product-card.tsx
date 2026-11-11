@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { formatPkr } from "@/lib/utils";
 import { useCart } from "@/lib/cart-store";
+import { SafeImage } from "@/components/safe-image";
 
 type Props = {
   product: {
@@ -32,8 +32,12 @@ export function ProductCard({ product, index = 0 }: Props) {
       transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.24) }}
       className="card overflow-hidden group"
     >
-      <Link href={`/product/${product.slug}`} className="block relative aspect-[4/5] bg-cream-2">
-        <Image
+      <Link
+        href={`/product/${product.slug}`}
+        className="block relative aspect-[4/5] bg-cream-2"
+        aria-label={`View ${product.name}`}
+      >
+        <SafeImage
           src={product.imageUrl}
           alt={product.name}
           fill
@@ -59,6 +63,7 @@ export function ProductCard({ product, index = 0 }: Props) {
               </span>
             ) : null}
           </div>
+          <p className="mt-1 text-[11px] font-semibold text-sage-deep">View details →</p>
         </Link>
         <button
           type="button"

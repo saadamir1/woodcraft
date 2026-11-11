@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { Minus, Plus, X } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
 import { formatPkr, waLink } from "@/lib/utils";
+import { SafeImage } from "@/components/safe-image";
 
 export function CartSheet({ whatsappNumber }: { whatsappNumber: string }) {
   const { items, open, setOpen, setQty, remove, subtotal } = useCart();
@@ -59,7 +59,7 @@ export function CartSheet({ whatsappNumber }: { whatsappNumber: string }) {
                 items.map((item) => (
                   <div key={item.productId} className="flex gap-3">
                     <div className="relative size-18 w-[72px] h-[72px] rounded-xl overflow-hidden bg-cream-2 shrink-0">
-                      <Image
+                      <SafeImage
                         src={item.imageUrl}
                         alt={item.name}
                         fill
