@@ -3,9 +3,15 @@ import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-const img = (slug: string) => `/products/${slug}.svg`;
+const img = (slug: string) => `/products/${slug}.jpg`;
 
 async function main() {
+  const existing = await prisma.product.count();
+  if (existing > 0 && process.env.FORCE_SEED !== "1") {
+    console.log(`Seed skipped (${existing} products already). Set FORCE_SEED=1 to reset.`);
+    return;
+  }
+
   await prisma.orderItem.deleteMany();
   await prisma.order.deleteMany();
   await prisma.abandonedCheckout.deleteMany();
@@ -302,13 +308,15 @@ async function main() {
 
   const settings: Record<string, string> = {
     brandName: "WoodCraft",
-    whatsappNumber: "923001234567",
+    parentCompany: "Gobox",
+    ownerName: "Amir Rashid",
+    whatsappNumber: "923275695299",
     freeDeliveryThresholdPkr: "7000",
     defaultDeliveryFeePkr: "250",
-    announcement: "Free delivery over Rs 7,000 · COD available nationwide",
-    jazzcashNumber: "03001234567",
-    easypaisaNumber: "03001234567",
-    bankDetails: "HBL · WoodCraft · PK00HABB0000001234567890",
+    announcement: "Free delivery over Rs 7,000 · COD · JazzCash / Easypaisa 0327 5695299",
+    jazzcashNumber: "03275695299",
+    easypaisaNumber: "03275695299",
+    bankDetails: "Bank transfer · WoodCraft (Gobox) · details on request via WhatsApp",
     chatbotEnabled: "true",
     codEnabled: "true",
     manualTransferEnabled: "true",

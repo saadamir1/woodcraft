@@ -17,13 +17,13 @@ export type StoreSettings = {
 
 const defaults: StoreSettings = {
   brandName: "WoodCraft",
-  whatsappNumber: "923001234567",
+  whatsappNumber: "923275695299",
   freeDeliveryThresholdPkr: 7000,
   defaultDeliveryFeePkr: 250,
-  announcement: "Free delivery over Rs 7,000 · COD available",
-  jazzcashNumber: "03001234567",
-  easypaisaNumber: "03001234567",
-  bankDetails: "HBL · WoodCraft · Account TBD",
+  announcement: "Free delivery over Rs 7,000 · COD · JazzCash / Easypaisa 0327 5695299",
+  jazzcashNumber: "03275695299",
+  easypaisaNumber: "03275695299",
+  bankDetails: "Bank transfer · WoodCraft (Gobox) · details on request via WhatsApp",
   chatbotEnabled: true,
   codEnabled: true,
   manualTransferEnabled: true,

@@ -1,0 +1,172 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  STAFF
+}
+
+enum OrderStatus {
+  NEW
+  CONFIRMED
+  PACKED
+  SHIPPED
+  DELIVERED
+  RETURNED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  COD
+  JAZZCASH
+  EASYPAISA
+  BANK
+  GATEWAY
+}
+
+enum PaymentStatus {
+  PENDING
+  AWAITING_PROOF
+  PAID
+  FAILED
+  REFUNDED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role     @default(STAFF)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  description String?
+  products    Product[]
+  createdAt   DateTime  @default(now())
+}
+
+model Product {
+  id          String         @id @default(cuid())
+  slug        String         @unique
+  name        String
+  description String
+  material    String?
+  size        String?
+  care        String?
+  pricePkr    Int
+  compareAt   Int?
+  stock       Int            @default(0)
+  lowStockAt  Int            @default(5)
+  featured    Boolean        @default(false)
+  visible     Boolean        @default(true)
+  hero3d      Boolean        @default(false)
+  imageUrl    String
+  imagesJson  String         @default("[]")
+  categoryId  String
+  category    Category       @relation(fields: [categoryId], references: [id])
+  orderItems  OrderItem[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model DiscountCode {
+  id            String    @id @default(cuid())
+  code          String    @unique
+  percentOff    Int?
+  amountOffPkr  Int?
+  active        Boolean   @default(true)
+  expiresAt     DateTime?
+  createdAt     DateTime  @default(now())
+  orders        Order[]
+}
+
+model Order {
+  id              String        @id @default(cuid())
+  orderNumber     String        @unique
+  status          OrderStatus   @default(NEW)
+  customerName    String
+  phone           String
+  city            String
+  address         String
+  note            String?
+  paymentMethod   PaymentMethod @default(COD)
+  paymentStatus   PaymentStatus @default(PENDING)
+  paymentRef      String?
+  paymentProofUrl String?
+  subtotalPkr     Int
+  deliveryFeePkr  Int
+  discountPkr     Int           @default(0)
+  totalPkr        Int
+  discountCodeId  String?
+  discountCode    DiscountCode? @relation(fields: [discountCodeId], references: [id])
+  adminNotes      String?
+  utmSource       String?
+  utmCampaign     String?
+  items           OrderItem[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  name      String
+  pricePkr  Int
+  qty       Int
+}
+
+model Setting {
+  id    String @id @default("default")
+  key   String @unique
+  value String
+}
+
+model AnalyticsEvent {
+  id         String   @id @default(cuid())
+  name       String
+  path       String?
+  productId  String?
+  orderId    String?
+  sessionId  String?
+  utmSource  String?
+  utmCampaign String?
+  meta       String?
+  createdAt  DateTime @default(now())
+}
+
+model AbandonedCheckout {
+  id        String   @id @default(cuid())
+  phone     String
+  name      String?
+  city      String?
+  cartJson  String
+  totalPkr  Int?
+  followedUp Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  city      String
+  quote     String
+  rating    Int      @default(5)
+  visible   Boolean  @default(true)
+  createdAt DateTime @default(now())
+}

@@ -12,7 +12,7 @@ type Props = Omit<ImageProps, "src" | "onError"> & {
 /** Avoids broken-image icons when a remote/local asset 404s. */
 export function SafeImage({
   src,
-  fallbackSrc = "/products/hero-home.svg",
+  fallbackSrc = "/products/hero-home.jpg",
   alt,
   className,
   fill,

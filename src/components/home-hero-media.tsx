@@ -7,7 +7,7 @@ export function HomeHeroMedia() {
   return (
     <div className="relative aspect-[4/5] sm:aspect-[5/4] rounded-[1.5rem] overflow-hidden border border-border shadow-[var(--shadow)]">
       <SafeImage
-        src="/products/hero-home.svg"
+        src="/products/hero-home.jpg"
         alt="Warm wooden pieces for kitchen and home"
         fill
         priority

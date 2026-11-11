@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
-    "build": "prisma generate && next build",
-    "start": "next start -p 3001",
+    "build": "node scripts/prepare-prod-schema.mjs && prisma generate && prisma db push && tsx prisma/seed.ts && next build",
+    "start": "next start",
     "lint": "eslint",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
