@@ -13,7 +13,7 @@ export function ProductHeroImage({
   tilt?: boolean;
 }) {
   return (
-    <TiltCard maxTilt={7} autoSway className="w-full">
+    <TiltCard maxTilt={7} autoSway={false} className="w-full">
       <div className="relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden border border-border bg-cream-2 shadow-[var(--shadow)]">
         <SafeImage
           src={src}

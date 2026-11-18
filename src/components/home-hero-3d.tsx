@@ -6,7 +6,8 @@ import { formatPkr } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
 /**
- * Mobile-first hero — full furniture in frame + auto 3D (no mouse needed).
+ * Mobile-first hero — full scene in frame.
+ * No auto sway / float (images stay still unless the user asks for motion).
  */
 export function HomeHero3D() {
   const reduce = useReducedMotion();
@@ -22,42 +23,21 @@ export function HomeHero3D() {
 
   return (
     <div className="relative w-full">
-      {!reduce ? (
-        <motion.div
-          aria-hidden
-          className="absolute -inset-3 rounded-[1.75rem] bg-gradient-to-br from-amber/35 via-transparent to-sage/30 blur-xl sm:blur-2xl"
-          animate={{ opacity: [0.35, 0.75, 0.35], scale: [0.98, 1.03, 0.98] }}
-          transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
-        />
-      ) : null}
+      <div
+        aria-hidden
+        className="absolute -inset-3 rounded-[1.75rem] bg-gradient-to-br from-amber/30 via-transparent to-sage/25 blur-xl sm:blur-2xl opacity-60"
+      />
 
-      <div className="relative z-[1] [perspective:1100px]">
+      <div className="relative z-[1]">
         <motion.div
           className={
             mobile
               ? "relative w-full overflow-hidden rounded-2xl border border-border shadow-[var(--shadow)] bg-cream-2 aspect-[3/2]"
               : "relative w-full overflow-hidden rounded-[1.5rem] border border-border shadow-[var(--shadow)] bg-cream-2 aspect-[5/4]"
           }
-          style={{ transformStyle: "preserve-3d", willChange: reduce ? undefined : "transform" }}
-          initial={reduce ? false : { opacity: 0.9, scale: 0.97 }}
-          animate={
-            reduce
-              ? { opacity: 1, scale: 1 }
-              : {
-                  opacity: 1,
-                  scale: 1,
-                  y: [0, -10, 0],
-                  rotateY: [-5, 5, -5],
-                  rotateX: [2.5, -2, 2.5],
-                }
-          }
-          transition={{
-            opacity: { duration: 0.45 },
-            scale: { duration: 0.45 },
-            y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-            rotateY: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-            rotateX: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-          }}
+          initial={reduce ? false : { opacity: 0.92, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
         >
           <Image
             src="/products/hero-home.jpg"

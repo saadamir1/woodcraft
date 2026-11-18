@@ -1,73 +1,46 @@
 "use client";
 
-import { motion, useMotionTemplate, useMotionValue, useSpring } from "motion/react";
+import { motion, useMotionTemplate, useSpring } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Mobile-first depth:
- * - Always auto-sway on touch / when idle (phones see real 3D)
- * - Fine pointer can steer while hovering
- * - Reduced motion: still
+ * Depth only when the user moves a real mouse.
+ * No auto sway — product / hero photos stay still on phones.
  */
 export function TiltCard({
   children,
   className = "",
   maxTilt = 8,
   glare = true,
-  autoSway = true,
+  autoSway = false,
 }: {
   children: React.ReactNode;
   className?: string;
   maxTilt?: number;
   glare?: boolean;
+  /** Kept for callers; auto sway is off by default and ignored. */
   autoSway?: boolean;
 }) {
+  void autoSway;
   const ref = useRef<HTMLDivElement>(null);
-  const [enabled, setEnabled] = useState(false);
   const [pointerSteer, setPointerSteer] = useState(false);
-  const steering = useRef(false);
-  const rx = useSpring(0, { stiffness: 140, damping: 22, mass: 0.45 });
-  const ry = useSpring(0, { stiffness: 140, damping: 22, mass: 0.45 });
-  const glareX = useSpring(50, { stiffness: 110, damping: 24 });
-  const glareY = useSpring(50, { stiffness: 110, damping: 24 });
+  const rx = useSpring(0, { stiffness: 160, damping: 22, mass: 0.4 });
+  const ry = useSpring(0, { stiffness: 160, damping: 22, mass: 0.4 });
+  const glareX = useSpring(50, { stiffness: 120, damping: 24 });
+  const glareY = useSpring(50, { stiffness: 120, damping: 24 });
   const glareBg = useMotionTemplate`radial-gradient(380px circle at ${glareX}% ${glareY}%, rgba(255,248,239,0.22), transparent 55%)`;
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
-      setEnabled(false);
+      setPointerSteer(false);
       return;
     }
-    setEnabled(true);
-    // Real desktop: hover + fine pointer. Chrome device mode often lies as fine —
-    // so we still keep auto sway unless the user is actively steering.
-    const canSteer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    setPointerSteer(canSteer);
+    setPointerSteer(window.matchMedia("(hover: hover) and (pointer: fine)").matches);
   }, []);
 
-  useEffect(() => {
-    if (!enabled || !autoSway) return;
-    let frame = 0;
-    let raf = 0;
-    const tick = () => {
-      if (!steering.current) {
-        frame += 0.022;
-        const ampY = Math.min(maxTilt, 6);
-        const ampX = Math.min(maxTilt * 0.5, 3);
-        ry.set(Math.sin(frame) * ampY);
-        rx.set(Math.cos(frame * 0.85) * ampX);
-        glareX.set(50 + Math.sin(frame) * 20);
-        glareY.set(50 + Math.cos(frame * 0.9) * 14);
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [enabled, autoSway, maxTilt, rx, ry, glareX, glareY]);
-
   function onMove(e: React.MouseEvent) {
-    if (!enabled || !pointerSteer) return;
-    steering.current = true;
+    if (!pointerSteer) return;
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
@@ -81,7 +54,10 @@ export function TiltCard({
 
   function onLeave() {
     if (!pointerSteer) return;
-    steering.current = false;
+    rx.set(0);
+    ry.set(0);
+    glareX.set(50);
+    glareY.set(50);
   }
 
   return (
@@ -89,17 +65,17 @@ export function TiltCard({
       <motion.div
         ref={ref}
         style={{
-          rotateX: enabled ? rx : 0,
-          rotateY: enabled ? ry : 0,
+          rotateX: pointerSteer ? rx : 0,
+          rotateY: pointerSteer ? ry : 0,
           transformStyle: "preserve-3d",
-          willChange: enabled ? "transform" : undefined,
+          willChange: pointerSteer ? "transform" : undefined,
         }}
         onMouseMove={onMove}
         onMouseLeave={onLeave}
         className="relative"
       >
         {children}
-        {glare && enabled ? (
+        {glare && pointerSteer ? (
           <motion.div
             aria-hidden
             className="pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-soft-light"
