@@ -41,10 +41,15 @@
 - Craft story, FAQ, WhatsApp CTA; PDP specs / promises / sale badges
 - Motion reveals — wood palette kept (no loud template look)
 
-## 10. Next (you)
+## 10. 2026-11-18 — Page speed pass
+- Before: home ~2.7s TTFB (force-dynamic + cold Neon)
+- After: home ~0.5–1.2s; about ~170ms; ISR 60s + query cache
+- Lazy cart/chat/WA; AVIF/WebP; LCP hero server Image
+
+## 11. Next (you)
 - Meta Pixel IDs + Groq key
 - Custom domain / commercial plan if selling
 - Optional WhatsApp Business app on same number
 - Gateway merchant application
-- Daraz validation of SKUs
+- Daraz store import (need shop URL)
 - Rotate Neon DB password (was shown in CLI earlier)
