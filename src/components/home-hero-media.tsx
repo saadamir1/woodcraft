@@ -1,16 +1,16 @@
-"use client";
-
-import { SafeImage } from "@/components/safe-image";
+import Image from "next/image";
 import { formatPkr } from "@/lib/utils";
 
+/** Server LCP hero — no client JS; priority preload for Core Web Vitals. */
 export function HomeHeroMedia() {
   return (
     <div className="relative aspect-[4/5] sm:aspect-[5/4] rounded-[1.5rem] overflow-hidden border border-border shadow-[var(--shadow)]">
-      <SafeImage
+      <Image
         src="/products/hero-home.jpg"
         alt="Warm wooden pieces for kitchen and home"
         fill
         priority
+        fetchPriority="high"
         className="object-cover"
         sizes="(max-width:1024px) 100vw, 50vw"
       />

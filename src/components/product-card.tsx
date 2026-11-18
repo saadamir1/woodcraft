@@ -26,7 +26,7 @@ export function ProductCard({ product, index = 0 }: Props) {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 12 }}
+      initial={index < 4 ? false : { opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.24) }}

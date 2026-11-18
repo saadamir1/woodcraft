@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -20,5 +21,7 @@ export async function PATCH(req: Request) {
       ...(body.name ? { name: String(body.name) } : {}),
     },
   });
+  revalidateTag("catalog", { expire: 0 });
+  if (product.slug) revalidateTag(`product-${product.slug}`, { expire: 0 });
   return NextResponse.json({ ok: true, product });
 }

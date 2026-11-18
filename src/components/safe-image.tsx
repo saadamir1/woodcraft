@@ -43,6 +43,7 @@ export function SafeImage({
       src={current}
       unoptimized={isSvg}
       className={className}
+      // Prefer modern formats from next/image pipeline (avif/webp via next.config)
       onError={() => {
         if (current !== fallbackSrc) setCurrent(fallbackSrc);
       }}

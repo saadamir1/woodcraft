@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -15,5 +16,6 @@ export async function POST(req: Request) {
       update: { value: String(value) },
     });
   }
+  revalidateTag("settings", { expire: 0 });
   return NextResponse.json({ ok: true });
 }

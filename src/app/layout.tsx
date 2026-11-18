@@ -1,25 +1,30 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
-import { getSettings } from "@/lib/settings";
+import { getCachedSettings } from "@/lib/cache";
 import { SiteHeader } from "@/components/site-header";
 import { BottomNav } from "@/components/bottom-nav";
-import { CartSheet } from "@/components/cart-sheet";
-import { WhatsAppFab } from "@/components/whatsapp-fab";
-import { ChatWidget } from "@/components/chat-widget";
+import {
+  LazyCartSheet,
+  LazyChatWidget,
+  LazyWhatsAppFab,
+} from "@/components/lazy-chrome";
 import { Providers } from "@/components/providers";
 import { MetaPixel } from "@/components/meta-pixel";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["600", "700"],
   variable: "--font-display",
+  display: "swap",
 });
 
 const body = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-body",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -41,7 +46,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const settings = await getSettings();
+  const settings = await getCachedSettings();
 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} h-full`}>
@@ -63,40 +68,52 @@ export default async function RootLayout({
               </div>
               <div className="space-y-2">
                 <p className="font-semibold text-walnut">Shop</p>
-                <a href="/shop" className="block text-muted hover:text-walnut">
+                <Link href="/shop" className="block text-muted hover:text-walnut">
                   All products
-                </a>
-                <a href="/shop?category=kitchen" className="block text-muted hover:text-walnut">
+                </Link>
+                <Link
+                  href="/shop?category=kitchen"
+                  className="block text-muted hover:text-walnut"
+                >
                   Kitchen
-                </a>
-                <a href="/shop?category=toys" className="block text-muted hover:text-walnut">
+                </Link>
+                <Link
+                  href="/shop?category=toys"
+                  className="block text-muted hover:text-walnut"
+                >
                   Toys
-                </a>
+                </Link>
               </div>
               <div className="space-y-2">
                 <p className="font-semibold text-walnut">Help</p>
-                <a href="/track" className="block text-muted hover:text-walnut">
+                <Link href="/track" className="block text-muted hover:text-walnut">
                   Track order
-                </a>
-                <a href="/policies/shipping" className="block text-muted hover:text-walnut">
+                </Link>
+                <Link
+                  href="/policies/shipping"
+                  className="block text-muted hover:text-walnut"
+                >
                   Shipping
-                </a>
-                <a href="/policies/returns" className="block text-muted hover:text-walnut">
+                </Link>
+                <Link
+                  href="/policies/returns"
+                  className="block text-muted hover:text-walnut"
+                >
                   Returns
-                </a>
-                <a href="/admin" className="block text-muted hover:text-walnut">
-                  Admin
-                </a>
+                </Link>
+                <Link href="/contact" className="block text-muted hover:text-walnut">
+                  Contact
+                </Link>
               </div>
             </div>
             <p className="text-center text-xs text-muted pb-6">
               © {new Date().getFullYear()} {settings.brandName}. PKR · Pakistan
             </p>
           </footer>
-          <CartSheet whatsappNumber={settings.whatsappNumber} />
+          <LazyCartSheet whatsappNumber={settings.whatsappNumber} />
           <BottomNav whatsappNumber={settings.whatsappNumber} />
-          <WhatsAppFab whatsappNumber={settings.whatsappNumber} />
-          <ChatWidget
+          <LazyWhatsAppFab whatsappNumber={settings.whatsappNumber} />
+          <LazyChatWidget
             enabled={settings.chatbotEnabled}
             whatsappNumber={settings.whatsappNumber}
           />

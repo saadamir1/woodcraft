@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { getSettings } from "@/lib/settings";
 import { formatPkr } from "@/lib/utils";
 import { ProductCard } from "@/components/product-card";
 import { AddToCartSticky } from "@/components/add-to-cart-sticky";
@@ -14,8 +13,26 @@ import {
   ProductSaleBadge,
 } from "@/components/product-detail-enrichment";
 import { Reveal } from "@/components/reveal";
+import {
+  getCachedProductBySlug,
+  getCachedRelated,
+  getCachedSettings,
+} from "@/lib/cache";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  try {
+    const products = await prisma.product.findMany({
+      where: { visible: true },
+      select: { slug: true },
+      take: 50,
+    });
+    return products.map((p) => ({ slug: p.slug }));
+  } catch {
+    return [];
+  }
+}
 
 export async function generateMetadata({
   params,
@@ -23,7 +40,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = await prisma.product.findUnique({ where: { slug } });
+  const product = await getCachedProductBySlug(slug);
   if (!product) return { title: "Product" };
   return {
     title: product.name,
@@ -42,21 +59,13 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = await prisma.product.findUnique({
-    where: { slug },
-    include: { category: true },
-  });
+  const product = await getCachedProductBySlug(slug);
   if (!product || !product.visible) notFound();
 
-  const settings = await getSettings();
-  const related = await prisma.product.findMany({
-    where: {
-      visible: true,
-      categoryId: product.categoryId,
-      NOT: { id: product.id },
-    },
-    take: 4,
-  });
+  const [settings, related] = await Promise.all([
+    getCachedSettings(),
+    getCachedRelated(product.categoryId, product.id),
+  ]);
 
   const low = product.stock > 0 && product.stock <= product.lowStockAt;
   const jsonLd = {
@@ -95,29 +104,29 @@ export default async function ProductPage({
       />
 
       <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-        <Reveal>
-          <div className="relative">
-            <ProductHeroImage
-              src={product.imageUrl}
-              alt={product.name}
-              tilt={product.hero3d}
+        <div className="relative">
+          <ProductHeroImage
+            src={product.imageUrl}
+            alt={product.name}
+            tilt={product.hero3d}
+          />
+          <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-[2]">
+            <ProductSaleBadge
+              pricePkr={product.pricePkr}
+              compareAt={product.compareAt}
             />
-            <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-[2]">
-              <ProductSaleBadge
-                pricePkr={product.pricePkr}
-                compareAt={product.compareAt}
-              />
-              {low ? (
-                <span className="badge bg-walnut text-cream">Only {product.stock} left</span>
-              ) : null}
-              <span className="badge bg-card/95 text-walnut border border-border">
-                COD
+            {low ? (
+              <span className="badge bg-walnut text-cream">
+                Only {product.stock} left
               </span>
-            </div>
+            ) : null}
+            <span className="badge bg-card/95 text-walnut border border-border">
+              COD
+            </span>
           </div>
-        </Reveal>
+        </div>
 
-        <Reveal delay={0.08}>
+        <div>
           <p className="text-sm font-semibold text-sage-deep">
             <Link href={`/shop?category=${product.category.slug}`}>
               {product.category.name}
@@ -165,7 +174,7 @@ export default async function ProductPage({
           <div className="mt-6">
             <AddToCartSticky product={product} whatsappNumber={settings.whatsappNumber} />
           </div>
-        </Reveal>
+        </div>
       </div>
 
       <ProductPromiseStrip

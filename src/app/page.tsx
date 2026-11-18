@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
-import { getSettings } from "@/lib/settings";
 import { formatPkr } from "@/lib/utils";
 import { HomeHeroMedia } from "@/components/home-hero-media";
 import {
@@ -14,36 +12,25 @@ import {
   HomeWhatsAppCta,
 } from "@/components/home-enrichment";
 import { Reveal } from "@/components/reveal";
+import {
+  getCachedCategories,
+  getCachedDealProduct,
+  getCachedFeaturedProducts,
+  getCachedSettings,
+  getCachedTestimonials,
+} from "@/lib/cache";
 
-export const dynamic = "force-dynamic";
+/** ISR — catalog pages served from cache, refresh every minute. */
+export const revalidate = 60;
 
 export default async function HomePage() {
-  const settings = await getSettings();
-  const [featured, testimonials, recentCount, categories, saleProduct] =
+  const [settings, featured, testimonials, categories, saleProduct] =
     await Promise.all([
-      prisma.product.findMany({
-        where: { visible: true, featured: true },
-        take: 8,
-        orderBy: { updatedAt: "desc" },
-      }),
-      prisma.testimonial.findMany({ where: { visible: true }, take: 3 }),
-      prisma.order.count({
-        where: {
-          status: { in: ["CONFIRMED", "PACKED", "SHIPPED", "DELIVERED"] },
-          createdAt: { gte: new Date(Date.now() - 14 * 86400000) },
-        },
-      }),
-      prisma.category.findMany({
-        include: { _count: { select: { products: { where: { visible: true } } } } },
-        orderBy: { name: "asc" },
-      }),
-      prisma.product.findFirst({
-        where: {
-          visible: true,
-          NOT: { compareAt: null },
-        },
-        orderBy: [{ featured: "desc" }, { updatedAt: "desc" }],
-      }),
+      getCachedSettings(),
+      getCachedFeaturedProducts(),
+      getCachedTestimonials(),
+      getCachedCategories(),
+      getCachedDealProduct(),
     ]);
 
   const catCards = categories.map((c) => ({
@@ -68,7 +55,8 @@ export default async function HomePage() {
           <div className="absolute top-20 right-0 size-80 rounded-full bg-sage/10 blur-3xl" />
         </div>
         <div className="relative mx-auto max-w-6xl px-4 py-12 sm:py-16 lg:py-20 grid lg:grid-cols-2 gap-10 items-center">
-          <Reveal>
+          {/* LCP text + image stay outside motion so first paint is not delayed */}
+          <div>
             <p className="text-sage-deep font-semibold text-sm tracking-wide uppercase">
               Pakistan · COD friendly · Gobox
             </p>
@@ -94,16 +82,8 @@ export default async function HomePage() {
               <span className="hidden sm:inline text-border">·</span>
               <span>WhatsApp 0327 5695299</span>
             </div>
-            {recentCount > 0 ? (
-              <p className="mt-4 text-sm text-muted">
-                <span className="font-semibold text-sage-deep">{recentCount}</span>{" "}
-                orders confirmed in the last 2 weeks
-              </p>
-            ) : null}
-          </Reveal>
-          <Reveal delay={0.1}>
-            <HomeHeroMedia />
-          </Reveal>
+          </div>
+          <HomeHeroMedia />
         </div>
       </section>
 
