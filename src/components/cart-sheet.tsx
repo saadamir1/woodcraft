@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { Minus, Plus, X } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
-import { formatPkr, waLink } from "@/lib/utils";
+import { formatPkr, productUrl, waLink } from "@/lib/utils";
 import { SafeImage } from "@/components/safe-image";
 
 export function CartSheet({ whatsappNumber }: { whatsappNumber: string }) {
@@ -14,7 +14,7 @@ export function CartSheet({ whatsappNumber }: { whatsappNumber: string }) {
     items.length === 0
       ? "Hi WoodCraft — I'd like to order."
       : `Hi WoodCraft — I'd like to order:\n${items
-          .map((i) => `• ${i.name} × ${i.qty}`)
+          .map((i) => `• ${i.name} × ${i.qty}\n  ${productUrl(i.slug)}`)
           .join("\n")}\nSubtotal: ${formatPkr(total)}`;
 
   return (

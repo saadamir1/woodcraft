@@ -24,3 +24,17 @@ export function waLink(phoneE164Digits: string, text: string): string {
   const n = phoneE164Digits.replace(/\D/g, "");
   return `https://wa.me/${n}?text=${encodeURIComponent(text)}`;
 }
+
+/** Public storefront origin for WhatsApp / SEO links (no trailing slash). */
+export function siteOrigin(): string {
+  if (typeof window !== "undefined" && window.location?.origin) {
+    return window.location.origin.replace(/\/$/, "");
+  }
+  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (fromEnv) return fromEnv.replace(/\/$/, "");
+  return "https://woodcraft-phi.vercel.app";
+}
+
+export function productUrl(slug: string): string {
+  return `${siteOrigin()}/product/${slug}`;
+}

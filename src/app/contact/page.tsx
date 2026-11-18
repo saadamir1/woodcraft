@@ -19,7 +19,7 @@ export default async function ContactPage() {
       </a>
       <div className="card p-4 mt-6 text-sm space-y-2">
         <p>
-          <strong>Email:</strong> hello@woodcraft.pk
+          <strong>WhatsApp:</strong> 0327 5695299
         </p>
         <p>
           <strong>Hours:</strong> Mon–Sat, 11am–8pm PKT

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { formatPkr, waLink } from "@/lib/utils";
+import { formatPkr, productUrl, waLink } from "@/lib/utils";
 import { useCart } from "@/lib/cart-store";
 import { trackPixel } from "@/components/meta-pixel";
 
@@ -72,7 +72,7 @@ export function AddToCartSticky({
         <a
           href={waLink(
             whatsappNumber,
-            `Hi WoodCraft — I'd like to order: ${product.name} (${formatPkr(product.pricePkr)}) https://woodcraft.pk/product/${product.slug}`,
+            `Hi WoodCraft — I'd like to order: ${product.name} (${formatPkr(product.pricePkr)}) ${productUrl(product.slug)}`,
           )}
           target="_blank"
           rel="noreferrer"
