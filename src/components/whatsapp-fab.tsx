@@ -1,9 +1,9 @@
 "use client";
 
-import { MessageCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { waLink } from "@/lib/utils";
 import { useCart } from "@/lib/cart-store";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export function WhatsAppFab({
   whatsappNumber,
@@ -29,7 +29,7 @@ export function WhatsAppFab({
       className="hidden md:flex fixed z-30 bottom-6 right-6 size-14 rounded-full bg-[#25D366] text-white shadow-lg items-center justify-center hover:scale-105 transition-transform"
       aria-label="Chat on WhatsApp"
     >
-      <MessageCircle className="size-7" />
+      <WhatsAppIcon className="size-8" />
     </a>
   );
 }

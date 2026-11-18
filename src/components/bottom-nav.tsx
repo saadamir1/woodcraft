@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Store, ShoppingBag, MessageCircle } from "lucide-react";
+import { Home, Store, ShoppingBag } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
 import { cn, waLink } from "@/lib/utils";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export function BottomNav({ whatsappNumber }: { whatsappNumber: string }) {
   const pathname = usePathname();
@@ -54,7 +55,7 @@ export function BottomNav({ whatsappNumber }: { whatsappNumber: string }) {
           rel="noreferrer"
           className={cn(item(false), "justify-center")}
         >
-          <MessageCircle className="size-5" />
+          <WhatsAppIcon className="size-5 text-[#25D366]" />
           WhatsApp
         </a>
       </div>
