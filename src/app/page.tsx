@@ -50,10 +50,6 @@ export default async function HomePage() {
   return (
     <div>
       <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 opacity-40">
-          <div className="absolute -top-24 -left-16 size-72 rounded-full bg-amber/15 blur-3xl" />
-          <div className="absolute top-20 right-0 size-80 rounded-full bg-sage/10 blur-3xl" />
-        </div>
         <div className="relative mx-auto max-w-6xl px-4 py-12 sm:py-16 lg:py-20 grid lg:grid-cols-2 gap-10 items-center">
           {/* LCP text + image stay outside motion so first paint is not delayed */}
           <div>

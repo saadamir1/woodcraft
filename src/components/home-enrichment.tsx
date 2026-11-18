@@ -67,7 +67,7 @@ export function HomeCategories({ categories }: { categories: Cat[] }) {
           <Reveal key={c.slug} delay={i * 0.06}>
             <Link
               href={`/shop?category=${c.slug}`}
-              className={`group relative overflow-hidden rounded-2xl min-h-[140px] sm:min-h-[180px] bg-gradient-to-br ${accents[i % accents.length]} text-cream p-5 flex flex-col justify-end shadow-[var(--shadow)]`}
+              className={`group relative overflow-hidden rounded-2xl min-h-[140px] sm:min-h-[180px] bg-gradient-to-br ${accents[i % accents.length]} p-5 flex flex-col justify-end shadow-[var(--shadow)]`}
             >
               <motion.div
                 className="absolute inset-0 opacity-30"
@@ -78,15 +78,15 @@ export function HomeCategories({ categories }: { categories: Cat[] }) {
                 animate={{ scale: [1, 1.08, 1] }}
                 transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
               />
-              <div className="relative z-[1]">
-                <p className="text-xs font-semibold uppercase tracking-wider opacity-80">
+              <div className="relative z-[1] text-[#fff8ef]">
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#fff8ef]/90">
                   {c.count} pieces
                 </p>
-                <h3 className="font-display text-2xl mt-1">{c.name}</h3>
-                <p className="mt-1 text-sm text-cream/80 line-clamp-2">
+                <h3 className="font-display text-2xl mt-1 text-[#fff8ef]">{c.name}</h3>
+                <p className="mt-1 text-sm text-[#fff8ef]/85 line-clamp-2">
                   {c.description ?? "Explore the collection"}
                 </p>
-                <span className="mt-3 inline-block text-sm font-semibold group-hover:translate-x-1 transition-transform">
+                <span className="mt-3 inline-block text-sm font-semibold text-[#fff8ef] group-hover:translate-x-1 transition-transform">
                   Browse →
                 </span>
               </div>
@@ -122,12 +122,12 @@ export function HomeTrust({ freeDeliveryThresholdPkr }: { freeDeliveryThresholdP
     },
   ];
   return (
-    <section className="border-y border-border bg-card/60">
-      <div className="mx-auto max-w-6xl px-4 py-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    <section className="mx-auto max-w-6xl px-4 py-10">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {items.map((it, i) => (
-          <Reveal key={it.title} delay={i * 0.05} className="flex gap-3">
+          <Reveal key={it.title} delay={i * 0.05} className="card p-4 flex gap-3">
             <div className="size-10 rounded-xl bg-cream-2 border border-border flex items-center justify-center shrink-0">
-              <it.icon className="size-5 text-sage-deep" />
+              <it.icon className="size-5 text-sage-deep" aria-hidden />
             </div>
             <div>
               <h3 className="font-semibold text-walnut text-sm">{it.title}</h3>
@@ -238,10 +238,10 @@ export function HomeCraftStory() {
       <div className="mt-8 grid md:grid-cols-3 gap-4">
         {steps.map((s, i) => (
           <Reveal key={s.n} delay={i * 0.08} className="card p-5 relative overflow-hidden">
-            <span className="font-display text-4xl text-amber/40 absolute -right-1 -top-1">
+            <span className="font-display text-4xl text-amber/70 absolute right-3 top-2">
               {s.n}
             </span>
-            <h3 className="font-semibold text-walnut relative">{s.t}</h3>
+            <h3 className="font-semibold text-walnut relative pr-12">{s.t}</h3>
             <p className="mt-2 text-sm text-muted relative leading-relaxed">{s.d}</p>
           </Reveal>
         ))}
@@ -253,13 +253,15 @@ export function HomeCraftStory() {
 export function HomeTestimonials({ items }: { items: Testimonial[] }) {
   if (!items.length) return null;
   return (
-    <section className="bg-[linear-gradient(180deg,transparent,rgba(95,122,97,0.06),transparent)]">
+    <section>
       <div className="mx-auto max-w-6xl px-4 py-14">
         <Reveal>
           <h2 className="font-display text-3xl sm:text-4xl text-walnut">
             What customers say
           </h2>
-          <p className="mt-2 text-muted text-sm">Real homes · real WhatsApp threads</p>
+          <p className="mt-2 text-sm text-walnut-soft">
+            Real homes · real WhatsApp threads
+          </p>
         </Reveal>
         <div className="mt-7 grid sm:grid-cols-3 gap-4">
           {items.map((t, i) => (
@@ -288,21 +290,21 @@ export function HomeFaq() {
     <section className="mx-auto max-w-6xl px-4 py-14">
       <Reveal className="max-w-xl">
         <h2 className="font-display text-3xl text-walnut">Questions, answered</h2>
-        <p className="mt-2 text-muted text-sm">
+        <p className="mt-2 text-sm text-walnut-soft">
           Still unsure? WhatsApp us — we reply with photos, sizes, and ETA.
         </p>
       </Reveal>
       <div className="mt-6 max-w-3xl space-y-3">
         {FAQS.map((f, i) => (
           <Reveal key={f.q} delay={i * 0.04}>
-            <details className="card group px-4 py-3 open:pb-4">
+            <details className="card group px-5 py-4 open:pb-5">
               <summary className="cursor-pointer font-semibold text-walnut list-none flex justify-between gap-3 items-center">
                 {f.q}
-                <span className="text-muted text-lg group-open:rotate-45 transition-transform">
+                <span className="text-walnut-soft text-lg group-open:rotate-45 transition-transform">
                   +
                 </span>
               </summary>
-              <p className="mt-2 text-sm text-muted leading-relaxed pr-6">{f.a}</p>
+              <p className="mt-3 text-sm text-muted leading-relaxed pr-6">{f.a}</p>
             </details>
           </Reveal>
         ))}
@@ -315,20 +317,20 @@ export function HomeWhatsAppCta({ whatsappNumber }: { whatsappNumber: string }) 
   return (
     <section className="mx-auto max-w-6xl px-4 pb-16">
       <Reveal>
-        <div className="rounded-2xl bg-walnut text-cream px-6 py-8 sm:px-10 sm:py-10 flex flex-col md:flex-row md:items-center gap-6 justify-between overflow-hidden relative">
+        <div className="rounded-2xl bg-[#3d2914] text-[#fff8ef] px-6 py-8 sm:px-10 sm:py-10 flex flex-col md:flex-row md:items-center gap-6 justify-between overflow-hidden relative">
           <motion.div
             className="absolute -right-10 -bottom-16 size-56 rounded-full bg-amber/20 blur-2xl"
             animate={{ opacity: [0.35, 0.6, 0.35] }}
             transition={{ duration: 5, repeat: Infinity }}
           />
-          <div className="relative">
-            <p className="text-sm font-semibold text-amber-soft uppercase tracking-wide">
+          <div className="relative z-[1]">
+            <p className="text-sm font-semibold text-[#f0c078] uppercase tracking-wide">
               Prefer a human?
             </p>
-            <h2 className="mt-2 font-display text-3xl sm:text-4xl max-w-lg">
+            <h2 className="mt-2 font-display text-3xl sm:text-4xl max-w-lg text-[#fff8ef]">
               Message WoodCraft on WhatsApp for sizes, gifts, and custom sets
             </h2>
-            <p className="mt-2 text-cream/75 text-sm max-w-md">
+            <p className="mt-2 text-[#fff8ef]/80 text-sm max-w-md">
               Same number for JazzCash / Easypaisa — 0327 5695299
             </p>
           </div>
@@ -336,9 +338,9 @@ export function HomeWhatsAppCta({ whatsappNumber }: { whatsappNumber: string }) 
             href={waLink(whatsappNumber, "Hi WoodCraft — I have a question about your wood pieces.")}
             target="_blank"
             rel="noreferrer"
-            className="btn relative bg-cream text-walnut hover:bg-cream-2 shrink-0"
+            className="btn btn-on-dark relative z-[1] shrink-0"
           >
-            <MessageCircle className="size-5" />
+            <MessageCircle className="size-5" aria-hidden />
             Chat on WhatsApp
           </a>
         </div>

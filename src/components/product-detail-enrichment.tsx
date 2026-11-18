@@ -95,7 +95,7 @@ export function ProductPromiseStrip({
           </div>
         </div>
       ))}
-      <p className="sm:col-span-2 lg:col-span-4 text-xs text-muted px-1">
+      <p className="sm:col-span-2 lg:col-span-4 text-sm text-walnut-soft px-1">
         Free delivery when your cart reaches {formatPkr(freeDeliveryThresholdPkr)}.
       </p>
     </Reveal>
@@ -165,25 +165,25 @@ export function ProductLongCopy({
           <dl className="space-y-3 text-sm">
             {material ? (
               <div className="flex justify-between gap-4 border-b border-border pb-2">
-                <dt className="text-muted">Material</dt>
-                <dd className="font-medium text-right">{material}</dd>
+                <dt className="text-walnut-soft font-medium">Material</dt>
+                <dd className="font-semibold text-right text-ink">{material}</dd>
               </div>
             ) : null}
             {size ? (
               <div className="flex justify-between gap-4 border-b border-border pb-2">
-                <dt className="text-muted">Size</dt>
-                <dd className="font-medium text-right">{size}</dd>
+                <dt className="text-walnut-soft font-medium">Size</dt>
+                <dd className="font-semibold text-right text-ink">{size}</dd>
               </div>
             ) : null}
             {care ? (
               <div>
-                <dt className="text-muted">Care</dt>
-                <dd className="font-medium mt-1 leading-relaxed">{care}</dd>
+                <dt className="text-walnut-soft font-medium">Care</dt>
+                <dd className="font-medium mt-1 leading-relaxed text-ink">{care}</dd>
               </div>
             ) : null}
             <div className="flex justify-between gap-4 border-b border-border pb-2">
-              <dt className="text-muted">Made for</dt>
-              <dd className="font-medium text-right">Home use · Pakistan</dd>
+              <dt className="text-walnut-soft font-medium">Made for</dt>
+              <dd className="font-semibold text-right text-ink">Home use · Pakistan</dd>
             </div>
           </dl>
         </div>

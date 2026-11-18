@@ -5,6 +5,7 @@ import { ShoppingBag, Search } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
 import { motion, AnimatePresence } from "motion/react";
 import { PromoMarquee } from "@/components/promo-marquee";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function SiteHeader({
   brandName,
@@ -29,7 +30,7 @@ export function SiteHeader({
         <Link href="/" className="font-display text-xl text-walnut tracking-tight">
           {brandName}
         </Link>
-        <nav className="hidden sm:flex items-center gap-5 text-sm font-medium text-walnut-soft">
+        <nav className="hidden sm:flex items-center gap-5 text-sm font-semibold text-walnut">
           <Link href="/shop" className="hover:text-sage-deep">
             Shop
           </Link>
@@ -43,7 +44,8 @@ export function SiteHeader({
             Contact
           </Link>
         </nav>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
+          <ThemeToggle />
           <Link
             href="/shop"
             className="p-2 rounded-full hover:bg-cream-2"

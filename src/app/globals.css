@@ -1,22 +1,44 @@
 @import "tailwindcss";
 
+/* Light — warm paper / wood */
 :root {
   --cream: #f7f1e8;
   --cream-2: #efe6d8;
   --walnut: #3d2914;
   --walnut-soft: #5c3d22;
   --sage: #5f7a61;
-  --sage-deep: #3f5a42;
+  --sage-deep: #3a5c3e;
   --amber: #c98a3a;
   --amber-soft: #e8b86d;
   --ink: #2a1c10;
-  --muted: #7a6a58;
+  --muted: #5c4d3d;
   --card: #fffcf7;
-  --border: #e4d7c5;
+  --border: #e0d2be;
   --danger: #b42318;
   --success: #2f6f4e;
   --radius: 1rem;
   --shadow: 0 10px 30px rgba(61, 41, 20, 0.08);
+  --on-dark: #fff8ef;
+}
+
+/* Dark — charcoal wood shop */
+html.dark {
+  --cream: #16110c;
+  --cream-2: #1f1812;
+  --walnut: #f0e6d6;
+  --walnut-soft: #dccdb8;
+  --sage: #8fb392;
+  --sage-deep: #b5d0b6;
+  --amber: #e0a04a;
+  --amber-soft: #f0c078;
+  --ink: #f7f1e8;
+  --muted: #c4b49a;
+  --card: #221a13;
+  --border: #3a2e24;
+  --danger: #f97066;
+  --success: #6fcf97;
+  --shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  --on-dark: #16110c;
 }
 
 @theme inline {
@@ -48,14 +70,25 @@
   }
 }
 
+/*
+  Soft fixed glow only — no full-bleed section bands that cut through cards
+  (those looked like misaligned divider lines).
+*/
 body {
-  background:
-    radial-gradient(1200px 500px at 10% -10%, rgba(201, 138, 58, 0.12), transparent),
-    radial-gradient(900px 400px at 100% 0%, rgba(95, 122, 97, 0.1), transparent),
-    var(--cream);
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(900px 420px at 8% -5%, rgba(201, 138, 58, 0.1), transparent 70%),
+    radial-gradient(700px 380px at 100% 0%, rgba(95, 122, 97, 0.08), transparent 65%);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-body), system-ui, sans-serif;
   min-height: 100dvh;
+}
+
+html.dark body {
+  background-image:
+    radial-gradient(900px 420px at 8% -5%, rgba(224, 160, 74, 0.08), transparent 70%),
+    radial-gradient(700px 380px at 100% 0%, rgba(143, 179, 146, 0.06), transparent 65%);
 }
 
 h1,
@@ -106,8 +139,13 @@ a {
 
 .btn-primary {
   background: var(--walnut);
-  color: #fff8ef;
+  color: var(--on-dark);
   box-shadow: 0 8px 20px rgba(61, 41, 20, 0.22);
+}
+
+html.dark .btn-primary {
+  color: #16110c;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
 .btn-primary:hover {
@@ -125,10 +163,25 @@ a {
   color: white;
 }
 
+html.dark .btn-sage {
+  color: #16110c;
+}
+
 .btn-ghost {
   background: transparent;
   color: var(--walnut);
   border-color: var(--border);
+}
+
+/* Cream pill on dark walnut banners — never inherit cream text */
+.btn-on-dark {
+  background: #fff8ef !important;
+  color: #3d2914 !important;
+  border-color: transparent !important;
+}
+
+.btn-on-dark:hover {
+  background: #efe6d8 !important;
 }
 
 .card {
@@ -141,7 +194,8 @@ a {
 .input {
   width: 100%;
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--card);
+  color: var(--ink);
   border-radius: 0.85rem;
   padding: 0.85rem 1rem;
   font-size: 1rem;
@@ -174,7 +228,7 @@ a {
 }
 
 .skeleton {
-  background: linear-gradient(90deg, #efe6d8, #f7f1e8, #efe6d8);
+  background: linear-gradient(90deg, var(--cream-2), var(--cream), var(--cream-2));
   background-size: 200% 100%;
   animation: shimmer 1.2s ease infinite;
   border-radius: 0.75rem;

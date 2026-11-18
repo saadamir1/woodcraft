@@ -49,7 +49,14 @@ export default async function RootLayout({
   const settings = await getCachedSettings();
 
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} h-full`}>
+    <html lang="en" className={`${display.variable} ${body.variable} h-full`} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('woodcraft-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark');document.documentElement.style.colorScheme='dark'}}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col antialiased">
         <Providers>
           <MetaPixel />

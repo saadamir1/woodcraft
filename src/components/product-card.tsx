@@ -68,7 +68,7 @@ export function ProductCard({ product, index = 0 }: Props) {
               </span>
             ) : null}
           </div>
-          <p className="mt-1 text-[11px] font-semibold text-sage-deep">View details →</p>
+          <p className="mt-1 text-xs font-semibold text-sage-deep">View details →</p>
         </Link>
         <button
           type="button"
