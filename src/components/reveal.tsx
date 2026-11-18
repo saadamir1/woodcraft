@@ -3,6 +3,7 @@
 import { motion, type HTMLMotionProps } from "motion/react";
 import { cn } from "@/lib/utils";
 
+/** Scroll-in for mobile + desktop — low threshold so phones fire early. */
 export function Reveal({
   children,
   className,
@@ -13,7 +14,7 @@ export function Reveal({
     <motion.div
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, amount: 0.12, margin: "0px 0px -8% 0px" }}
       transition={{ duration: 0.45, delay, ease: [0.22, 1, 0.36, 1] }}
       className={cn(className)}
       {...rest}

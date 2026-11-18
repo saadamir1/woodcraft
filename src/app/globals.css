@@ -253,6 +253,13 @@ html.dark .card-lift:hover {
   }
 }
 
+/* Mobile: keep card taps snappy */
+@media (max-width: 767px) {
+  .card-lift:active {
+    transform: scale(0.985);
+  }
+}
+
 .input {
   width: 100%;
   border: 1px solid var(--border);

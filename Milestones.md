@@ -63,7 +63,13 @@
 - Callout errors (track/checkout/admin/import) + add-to-cart toast
 - Solid WhatsApp FAB mark
 
-## 14. Next (you)
+## 14. 2026-11-18 — Mobile-first hero + motion
+- Hero photo first on phones; full scene via object-contain (no legs-only crop)
+- Auto 3D sway on hero + product cards (works without mouse)
+- Scroll reveals fire earlier on mobile; full-width CTAs
+- Dropped duplicate JazzCash line under hero on small screens
+
+## 15. Next (you)
 - Meta Pixel IDs + Groq key
 - Custom domain / commercial plan if selling
 - Optional WhatsApp Business app on same number

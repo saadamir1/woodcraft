@@ -13,15 +13,15 @@ export function ProductHeroImage({
   tilt?: boolean;
 }) {
   return (
-    <TiltCard maxTilt={9} className="w-full">
-      <div className="relative aspect-square rounded-3xl overflow-hidden border border-border bg-cream-2 shadow-[var(--shadow)]">
+    <TiltCard maxTilt={7} autoSway className="w-full">
+      <div className="relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden border border-border bg-cream-2 shadow-[var(--shadow)]">
         <SafeImage
           src={src}
           alt={alt}
           fill
           priority
-          className="object-cover"
-          sizes="(max-width:1024px) 100vw, 50vw"
+          className="object-cover object-center"
+          sizes="(max-width:768px) 100vw, 50vw"
         />
       </div>
     </TiltCard>

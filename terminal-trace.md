@@ -19,3 +19,4 @@
 - gh CLI: `D:\MYAPPS\tools\gh\gh.exe` (logged in as saadamir1)
 - 2026-11-18: `xlsx` added for Admin Import; local `npm run dev` on :3001 for FE test
 - Admin Import: `/admin/import` (parse + commit APIs)
+- 2026-11-18 mobile-first: hero object-contain + auto 3D sway; verified on 390px viewport (objectFit=contain, matrix3d tilt live); `tsc` OK; push master → Vercel

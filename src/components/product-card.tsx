@@ -28,10 +28,11 @@ export function ProductCard({ product, index = 0 }: Props) {
 
   return (
     <motion.article
-      initial={index < 4 ? false : { opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.24) }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.35, delay: Math.min(index * 0.03, 0.18) }}
+      whileTap={{ scale: 0.98 }}
       className="card card-lift overflow-hidden group"
     >
       <Link

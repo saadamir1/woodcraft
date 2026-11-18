@@ -50,35 +50,36 @@ export default async function HomePage() {
   return (
     <div className="page-shell">
       <section className="relative overflow-hidden">
-        <div className="relative mx-auto max-w-6xl px-4 py-12 sm:py-16 lg:py-20 grid lg:grid-cols-2 gap-10 items-center">
-          <div>
+        <div className="relative mx-auto max-w-6xl px-4 pt-6 pb-10 sm:py-14 lg:py-20 grid lg:grid-cols-2 gap-6 sm:gap-10 items-center">
+          {/* Mobile-first: photo first, then copy */}
+          <div className="order-1 lg:order-2">
+            <HomeHero3D />
+          </div>
+          <div className="order-2 lg:order-1">
             <p className="text-sage-deep font-semibold text-sm tracking-wide uppercase">
               Pakistan · COD · Gobox
             </p>
-            <h1 className="mt-3 font-display text-4xl sm:text-5xl lg:text-6xl text-walnut leading-[1.05]">
+            <h1 className="mt-2 sm:mt-3 font-display text-3xl sm:text-5xl lg:text-6xl text-walnut leading-[1.08]">
               Wood that feels like home
             </h1>
-            <p className="mt-4 text-muted text-base sm:text-lg max-w-md leading-relaxed">
+            <p className="mt-3 sm:mt-4 text-muted text-sm sm:text-lg max-w-md leading-relaxed">
               Kitchen boards, spice boxes, trays, and gentle wooden toys for everyday
               living. Order with COD or WhatsApp.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/shop" className="btn btn-primary">
+            <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row gap-2.5 sm:gap-3">
+              <Link href="/shop" className="btn btn-primary w-full sm:w-auto">
                 Shop collection
               </Link>
-              <Link href="/about" className="btn btn-secondary">
+              <Link href="/about" className="btn btn-secondary w-full sm:w-auto">
                 Our story
               </Link>
             </div>
-            <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+            {/* Banner already shows this on mobile — keep once on small screens */}
+            <div className="mt-4 sm:mt-6 hidden sm:flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
               <span>Free delivery over {formatPkr(settings.freeDeliveryThresholdPkr)}</span>
-              <span className="hidden sm:inline text-border">·</span>
-              <span>JazzCash / Easypaisa</span>
-              <span className="hidden sm:inline text-border">·</span>
-              <span>WhatsApp 0327 5695299</span>
+              <span>JazzCash / Easypaisa · WhatsApp 0327 5695299</span>
             </div>
           </div>
-          <HomeHero3D />
         </div>
       </section>
 
