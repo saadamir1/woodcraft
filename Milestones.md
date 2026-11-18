@@ -69,7 +69,12 @@
 - Scroll reveals fire earlier on mobile; full-width CTAs
 - Dropped duplicate JazzCash line under hero on small screens
 
-## 15. Next (you)
+## 15. 2026-11-18 — Dark chip contrast
+- Shop category tabs: cream fill + dark text in dark mode (was invisible)
+- Same pill fix for admin nav; promo + low-stock badges use wc-surface-walnut
+- Stopped `a { color: inherit }` from killing link text colors
+
+## 16. Next (you)
 - Meta Pixel IDs + Groq key
 - Custom domain / commercial plan if selling
 - Optional WhatsApp Business app on same number

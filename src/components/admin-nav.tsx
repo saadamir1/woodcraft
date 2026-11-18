@@ -29,10 +29,7 @@ export function AdminNav({ role }: { role?: string }) {
             <Link
               key={l.href}
               href={l.href}
-              className={cn(
-                "px-3 py-1.5 rounded-full text-sm font-semibold",
-                pathname === l.href ? "bg-walnut text-cream" : "bg-cream-2 text-walnut",
-              )}
+              className={cn("wc-chip", pathname === l.href && "wc-chip-active")}
             >
               {l.label}
             </Link>

@@ -28,7 +28,7 @@ export function PromoMarquee({
 
   return (
     <div
-      className={`bg-walnut text-cream overflow-hidden ${className}`}
+      className={`wc-surface-walnut overflow-hidden ${className}`}
       role="status"
       aria-live="polite"
     >

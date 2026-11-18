@@ -54,7 +54,7 @@ export function ProductCard({ product, index = 0 }: Props) {
             </span>
           ) : null}
           {low ? (
-            <span className="badge bg-walnut text-cream">Low stock</span>
+            <span className="badge wc-surface-walnut">Low stock</span>
           ) : null}
         </div>
       </Link>

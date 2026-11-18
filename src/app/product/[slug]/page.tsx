@@ -116,7 +116,7 @@ export default async function ProductPage({
               compareAt={product.compareAt}
             />
             {low ? (
-              <span className="badge bg-walnut text-cream">
+              <span className="badge wc-surface-walnut">
                 Only {product.stock} left
               </span>
             ) : null}

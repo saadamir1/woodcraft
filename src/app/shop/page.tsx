@@ -75,12 +75,7 @@ export default async function ShopPage({
       <div className="mt-5 flex flex-wrap gap-2">
         <Link
           href={hrefFor({ category: "" })}
-          className={cn(
-            "rounded-full px-3.5 py-1.5 text-sm font-semibold border transition-colors",
-            !category
-              ? "bg-walnut text-[var(--on-dark)] border-walnut"
-              : "bg-card border-border text-walnut hover:border-sage",
-          )}
+          className={cn("wc-chip", !category && "wc-chip-active")}
         >
           All
         </Link>
@@ -88,12 +83,7 @@ export default async function ShopPage({
           <Link
             key={c.id}
             href={hrefFor({ category: c.slug })}
-            className={cn(
-              "rounded-full px-3.5 py-1.5 text-sm font-semibold border transition-colors",
-              category === c.slug
-                ? "bg-walnut text-[var(--on-dark)] border-walnut"
-                : "bg-card border-border text-walnut hover:border-sage",
-            )}
+            className={cn("wc-chip", category === c.slug && "wc-chip-active")}
           >
             {c.name}
           </Link>
