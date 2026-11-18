@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { formatPkr, normalizePkPhone } from "@/lib/utils";
+import { Callout } from "@/components/callout";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,7 @@ export default async function TrackPage({
   const sp = await searchParams;
   const n = sp.n?.trim();
   const phone = sp.p ? normalizePkPhone(sp.p) : null;
+  const attempted = Boolean(n && sp.p);
 
   const order =
     n && phone
@@ -21,9 +23,12 @@ export default async function TrackPage({
       : null;
 
   return (
-    <div className="mx-auto max-w-lg px-4 py-10">
+    <div className="page-shell mx-auto max-w-lg px-4 py-10">
       <h1 className="font-display text-4xl text-walnut">Track order</h1>
-      <p className="text-sm text-muted mt-1">Use your order number and mobile</p>
+      <p className="text-sm text-muted mt-1">
+        Enter the order number from your confirmation SMS or WhatsApp, plus the same
+        mobile you used at checkout.
+      </p>
       <form className="mt-6 space-y-3 card p-4">
         <div>
           <label className="label">Order number</label>
@@ -44,12 +49,22 @@ export default async function TrackPage({
         </button>
       </form>
 
-      {n && phone && !order ? (
-        <p className="mt-6 text-sm text-danger">No order found for that number + phone.</p>
+      {attempted && !phone ? (
+        <Callout className="mt-6" tone="warn" title="Check the mobile number">
+          Use a Pakistani number like 03XXXXXXXXX.
+        </Callout>
+      ) : null}
+
+      {attempted && phone && !order ? (
+        <Callout className="mt-6" tone="error" title="No matching order">
+          We could not find that order number with this phone. Double-check both, or message
+          us on WhatsApp 0327 5695299.
+        </Callout>
       ) : null}
 
       {order ? (
         <div className="mt-6 card p-5 space-y-3">
+          <Callout tone="success" title="Order found" />
           <div className="flex justify-between gap-3">
             <div>
               <p className="font-semibold">{order.orderNumber}</p>

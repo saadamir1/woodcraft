@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { formatPkr, productUrl, waLink } from "@/lib/utils";
 import { useCart } from "@/lib/cart-store";
 import { trackPixel } from "@/components/meta-pixel";
+import { useToast } from "@/components/toast";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export function AddToCartSticky({
   product,
@@ -20,6 +22,7 @@ export function AddToCartSticky({
   whatsappNumber: string;
 }) {
   const add = useCart((s) => s.add);
+  const { push } = useToast();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -41,6 +44,7 @@ export function AddToCartSticky({
       pricePkr: product.pricePkr,
       imageUrl: product.imageUrl,
     });
+    push(`Added ${product.name}`);
     trackPixel("AddToCart", {
       content_ids: [product.id],
       content_name: product.name,
@@ -78,6 +82,7 @@ export function AddToCartSticky({
           rel="noreferrer"
           className="btn btn-sage flex-1"
         >
+          <WhatsAppIcon className="size-4" solid />
           Order on WhatsApp
         </a>
       </div>

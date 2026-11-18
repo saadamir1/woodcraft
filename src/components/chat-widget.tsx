@@ -109,7 +109,7 @@ export function ChatWidget({
             setOpen(true);
             setPulse(false);
           }}
-          className="chat-fab fixed z-30 bottom-[5.25rem] left-3 md:bottom-6 md:left-6 flex items-center gap-2 rounded-full bg-walnut text-[var(--on-dark)] shadow-lg pl-3.5 pr-4 h-12 border border-border/40"
+          className="chat-fab fixed z-30 bottom-[5.25rem] left-3 md:bottom-6 md:left-6 flex items-center gap-2 rounded-full bg-walnut text-[var(--on-dark)] shadow-lg pl-3 pr-3.5 sm:pr-4 h-12 border border-border/40"
           aria-label="Open shop chat"
         >
           <span className="relative flex size-8 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--on-dark)_14%,transparent)]">
@@ -118,7 +118,7 @@ export function ChatWidget({
               <span className="absolute -top-0.5 -right-0.5 size-2.5 rounded-full bg-amber ring-2 ring-walnut" />
             ) : null}
           </span>
-          <span className="text-sm font-semibold hidden sm:inline">Ask us</span>
+          <span className="text-sm font-semibold">Ask us</span>
         </button>
       ) : null}
 

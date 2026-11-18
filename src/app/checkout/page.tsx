@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/lib/cart-store";
 import { formatPkr } from "@/lib/utils";
 import { trackPixel } from "@/components/meta-pixel";
+import { Callout } from "@/components/callout";
 
 type Settings = {
   freeDeliveryThresholdPkr: number;
@@ -94,7 +95,7 @@ export default function CheckoutPage() {
       });
       const data = await res.json();
       if (!data.ok) {
-        setError(data.error || "Checkout failed");
+        setError(data.error || "We could not place this order. Check your details and try again.");
         setLoading(false);
         return;
       }
@@ -108,7 +109,7 @@ export default function CheckoutPage() {
         `/order/success?n=${encodeURIComponent(data.order.orderNumber)}&p=${encodeURIComponent(data.order.phone)}`,
       );
     } catch {
-      setError("Network error. Try again.");
+      setError("Connection issue. Check your internet and try again.");
       setLoading(false);
     }
   }
@@ -290,7 +291,11 @@ export default function CheckoutPage() {
           />
         </div>
 
-        {error ? <p className="text-sm text-danger">{error}</p> : null}
+        {error ? (
+          <Callout tone="error" title="Could not place order">
+            {error}
+          </Callout>
+        ) : null}
 
         <button type="submit" className="btn btn-primary w-full" disabled={loading}>
           {loading ? "Placing order…" : `Place order · ${formatPkr(totals.total)}`}

@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Callout } from "@/components/callout";
 
 export function AdminLoginForm() {
   const router = useRouter();
@@ -23,7 +24,7 @@ export function AdminLoginForm() {
     });
     setLoading(false);
     if (res?.error) {
-      setError("Invalid email or password");
+      setError("Email or password is not correct.");
       return;
     }
     router.push(sp.get("callbackUrl") || "/admin");
@@ -54,7 +55,11 @@ export function AdminLoginForm() {
             required
           />
         </div>
-        {error ? <p className="text-sm text-danger">{error}</p> : null}
+        {error ? (
+          <Callout tone="error" title="Sign-in failed">
+            {error}
+          </Callout>
+        ) : null}
         <button className="btn btn-primary w-full" disabled={loading}>
           {loading ? "Signing in…" : "Sign in"}
         </button>

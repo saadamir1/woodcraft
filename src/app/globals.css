@@ -21,24 +21,24 @@
   --on-dark: #fff8ef;
 }
 
-/* Dark — charcoal wood shop */
+/* Dark — warm walnut night (lifted so it is not pitch-black) */
 html.dark {
-  --cream: #16110c;
-  --cream-2: #1f1812;
-  --walnut: #f0e6d6;
-  --walnut-soft: #dccdb8;
-  --sage: #8fb392;
-  --sage-deep: #b5d0b6;
-  --amber: #e0a04a;
-  --amber-soft: #f0c078;
-  --ink: #f7f1e8;
-  --muted: #c4b49a;
-  --card: #221a13;
-  --border: #3a2e24;
+  --cream: #1c1712;
+  --cream-2: #272019;
+  --walnut: #f3ebe0;
+  --walnut-soft: #e2d4c0;
+  --sage: #9bc09d;
+  --sage-deep: #c2dcc3;
+  --amber: #e8ad55;
+  --amber-soft: #f3c988;
+  --ink: #faf4eb;
+  --muted: #d2c3ad;
+  --card: #2c241c;
+  --border: #4a3c30;
   --danger: #f97066;
   --success: #6fcf97;
-  --shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
-  --on-dark: #16110c;
+  --shadow: 0 14px 34px rgba(0, 0, 0, 0.38);
+  --on-dark: #1c1712;
 }
 
 @theme inline {

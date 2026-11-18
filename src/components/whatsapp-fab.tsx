@@ -26,10 +26,10 @@ export function WhatsAppFab({
       href={waLink(whatsappNumber, text)}
       target="_blank"
       rel="noreferrer"
-      className="hidden md:flex fixed z-30 bottom-6 right-6 size-14 rounded-full bg-[#25D366] text-white shadow-lg items-center justify-center hover:scale-105 transition-transform"
+      className="hidden md:flex fixed z-30 bottom-6 right-6 size-14 rounded-full bg-[#25D366] shadow-lg items-center justify-center hover:scale-105 transition-transform"
       aria-label="Chat on WhatsApp"
     >
-      <WhatsAppIcon className="size-8" />
+      <WhatsAppIcon className="size-8" solid />
     </a>
   );
 }

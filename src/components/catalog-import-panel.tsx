@@ -7,6 +7,7 @@ import {
   type ImportField,
 } from "@/lib/catalog-import";
 import { formatPkr } from "@/lib/utils";
+import { Callout } from "@/components/callout";
 
 const FIELD_OPTIONS: { value: ImportField; label: string }[] = [
   { value: "skip", label: "Ignore column" },
@@ -108,10 +109,14 @@ export function CatalogImportPanel() {
           />
         </label>
         {error ? (
-          <p className="text-sm text-danger font-medium">{error}</p>
+          <Callout tone="error" title="Import could not continue">
+            {error}
+          </Callout>
         ) : null}
         {result ? (
-          <p className="text-sm text-success font-medium">{result}</p>
+          <Callout tone="success" title="Import finished">
+            {result}
+          </Callout>
         ) : null}
       </div>
 

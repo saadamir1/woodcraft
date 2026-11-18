@@ -55,7 +55,9 @@ export function BottomNav({ whatsappNumber }: { whatsappNumber: string }) {
           rel="noreferrer"
           className={cn(item(false), "justify-center")}
         >
-          <WhatsAppIcon className="size-5 text-[#25D366]" />
+          <span className="flex size-5 items-center justify-center rounded-full bg-[#25D366]">
+            <WhatsAppIcon className="size-3.5" solid />
+          </span>
           WhatsApp
         </a>
       </div>

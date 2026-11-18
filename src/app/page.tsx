@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { formatPkr } from "@/lib/utils";
-import { HomeHeroMedia } from "@/components/home-hero-media";
+import { HomeHero3D } from "@/components/home-hero-3d";
 import {
   HomeCategories,
   HomeCraftStory,
@@ -78,7 +78,7 @@ export default async function HomePage() {
               <span>WhatsApp 0327 5695299</span>
             </div>
           </div>
-          <HomeHeroMedia />
+          <HomeHero3D />
         </div>
       </section>
 

@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { formatPkr } from "@/lib/utils";
 import { useCart } from "@/lib/cart-store";
 import { SafeImage } from "@/components/safe-image";
+import { useToast } from "@/components/toast";
 
 type Props = {
   product: {
@@ -22,6 +23,7 @@ type Props = {
 
 export function ProductCard({ product, index = 0 }: Props) {
   const add = useCart((s) => s.add);
+  const { push } = useToast();
   const low = product.stock > 0 && product.stock <= product.lowStockAt;
 
   return (
@@ -76,15 +78,16 @@ export function ProductCard({ product, index = 0 }: Props) {
           type="button"
           className="btn btn-primary w-full text-sm"
           disabled={product.stock <= 0}
-          onClick={() =>
+          onClick={() => {
             add({
               productId: product.id,
               slug: product.slug,
               name: product.name,
               pricePkr: product.pricePkr,
               imageUrl: product.imageUrl,
-            })
-          }
+            });
+            push(`Added ${product.name}`);
+          }}
         >
           {product.stock <= 0 ? "Sold out" : "Add to cart"}
         </button>
