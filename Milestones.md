@@ -57,7 +57,13 @@
 - Admin `/admin/import`: flexible Excel/CSV column map for Daraz-style sheets
 - WhatsApp product links use live Vercel URL (not woodcraft.pk)
 
-## 13. Next (you)
+## 13. 2026-11-18 — Dark soften + 3D + pro errors
+- Dark mode lifted (less pitch-black)
+- Home hero 3D float/tilt; product image pointer tilt
+- Callout errors (track/checkout/admin/import) + add-to-cart toast
+- Solid WhatsApp FAB mark
+
+## 14. Next (you)
 - Meta Pixel IDs + Groq key
 - Custom domain / commercial plan if selling
 - Optional WhatsApp Business app on same number
