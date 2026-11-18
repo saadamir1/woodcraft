@@ -24,10 +24,11 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/admin/login", req.url));
   }
 
-  // Staff cannot open products/settings CRUD
+  // Staff cannot open products/settings/import CRUD
   if (
     role === "STAFF" &&
     (pathname.startsWith("/admin/products") ||
+      pathname.startsWith("/admin/import") ||
       pathname.startsWith("/admin/settings") ||
       pathname.startsWith("/admin/discounts"))
   ) {

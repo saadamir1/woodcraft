@@ -6,14 +6,13 @@ import {
   Leaf,
   Truck,
   ShieldCheck,
-  MessageCircle,
   Gift,
-  Sparkles,
 } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { ProductCard } from "@/components/product-card";
 import { formatPkr, waLink } from "@/lib/utils";
 import { SafeImage } from "@/components/safe-image";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 type Cat = { slug: string; name: string; description: string | null; count: number };
 type Product = {
@@ -31,15 +30,15 @@ type Testimonial = { id: string; name: string; city: string; quote: string; rati
 const FAQS = [
   {
     q: "Do you offer Cash on Delivery?",
-    a: "Yes — COD is available nationwide. We confirm on WhatsApp before dispatch.",
+    a: "Yes. COD is available nationwide. We confirm on WhatsApp before dispatch.",
   },
   {
     q: "How long does delivery take?",
-    a: "Usually 2–5 days in major cities. Remote areas may take a little longer.",
+    a: "Usually 2 to 5 days in major cities. Remote areas may take a little longer.",
   },
   {
     q: "Can I pay with JazzCash or Easypaisa?",
-    a: "Yes. Transfer to our wallet number at checkout, share the TID, and we confirm quickly.",
+    a: "Yes. Transfer to 0327 5695299 at checkout, share the TID, and we confirm quickly.",
   },
   {
     q: "How do I care for the wood?",
@@ -48,7 +47,11 @@ const FAQS = [
 ];
 
 export function HomeCategories({ categories }: { categories: Cat[] }) {
-  const accents = ["from-[#5c3d22] to-[#3d2914]", "from-[#8a6a3d] to-[#5c3d22]", "from-[#3f5a42] to-[#2a4030]"];
+  const accents = [
+    "from-[#5c3d22] to-[#3d2914]",
+    "from-[#8a6a3d] to-[#5c3d22]",
+    "from-[#3f5a42] to-[#2a4030]",
+  ];
   return (
     <section className="mx-auto max-w-6xl px-4 py-12">
       <Reveal>
@@ -59,7 +62,7 @@ export function HomeCategories({ categories }: { categories: Cat[] }) {
           Kitchen, play, and gifting
         </h2>
         <p className="mt-2 text-muted max-w-xl">
-          Small catalog on purpose — clearer photos, better finish, easier choices.
+          A focused catalog so every photo, size, and finish is easy to trust.
         </p>
       </Reveal>
       <div className="mt-7 grid sm:grid-cols-3 gap-3 sm:gap-4">
@@ -67,7 +70,7 @@ export function HomeCategories({ categories }: { categories: Cat[] }) {
           <Reveal key={c.slug} delay={i * 0.06}>
             <Link
               href={`/shop?category=${c.slug}`}
-              className={`group relative overflow-hidden rounded-2xl min-h-[140px] sm:min-h-[180px] bg-gradient-to-br ${accents[i % accents.length]} p-5 flex flex-col justify-end shadow-[var(--shadow)]`}
+              className={`group relative overflow-hidden rounded-2xl min-h-[140px] sm:min-h-[180px] bg-gradient-to-br ${accents[i % accents.length]} p-5 flex flex-col justify-end shadow-[var(--shadow)] transition-transform duration-300 hover:-translate-y-0.5`}
             >
               <motion.div
                 className="absolute inset-0 opacity-30"
@@ -87,7 +90,7 @@ export function HomeCategories({ categories }: { categories: Cat[] }) {
                   {c.description ?? "Explore the collection"}
                 </p>
                 <span className="mt-3 inline-block text-sm font-semibold text-[#fff8ef] group-hover:translate-x-1 transition-transform">
-                  Browse →
+                  Browse
                 </span>
               </div>
             </Link>
@@ -108,17 +111,17 @@ export function HomeTrust({ freeDeliveryThresholdPkr }: { freeDeliveryThresholdP
     {
       icon: Gift,
       title: `Free delivery over ${formatPkr(freeDeliveryThresholdPkr)}`,
-      body: "Threshold applies on cart subtotal before checkout fees.",
+      body: "Applies on cart subtotal before checkout fees.",
     },
     {
       icon: ShieldCheck,
       title: "Checked before pack",
-      body: "Grain, finish, and edges reviewed so what you unbox matches the photo.",
+      body: "Grain, finish, and edges reviewed so the unboxing matches the photo.",
     },
     {
       icon: Leaf,
       title: "Warm, usable wood",
-      body: "Everyday kitchen tools and gentle toys — not disposable décor.",
+      body: "Everyday kitchen tools and gentle toys, not disposable décor.",
     },
   ];
   return (
@@ -140,6 +143,46 @@ export function HomeTrust({ freeDeliveryThresholdPkr }: { freeDeliveryThresholdP
   );
 }
 
+export function HomeHowToOrder() {
+  const steps = [
+    {
+      t: "Pick a design",
+      d: "Browse kitchen, toys, or gift sets with clear sizes and photos.",
+    },
+    {
+      t: "Checkout your way",
+      d: "COD, JazzCash, or Easypaisa. We confirm on WhatsApp before packing.",
+    },
+    {
+      t: "Receive and enjoy",
+      d: "Courier to your door, care note inside, ready for everyday use.",
+    },
+  ];
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-10">
+      <Reveal>
+        <p className="text-sage-deep text-sm font-semibold uppercase tracking-wide">
+          Simple ordering
+        </p>
+        <h2 className="mt-2 font-display text-3xl text-walnut">Three easy steps</h2>
+      </Reveal>
+      <div className="mt-6 grid md:grid-cols-3 gap-4">
+        {steps.map((s, i) => (
+          <Reveal key={s.t} delay={i * 0.06} className="card p-5 flex gap-3 items-start">
+            <div className="size-10 rounded-full bg-sage/15 text-sage-deep flex items-center justify-center shrink-0 font-display text-lg">
+              {i + 1}
+            </div>
+            <div>
+              <h3 className="font-semibold text-walnut">{s.t}</h3>
+              <p className="mt-1 text-sm text-muted leading-relaxed">{s.d}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function HomeDealBanner({
   product,
   threshold,
@@ -151,16 +194,12 @@ export function HomeDealBanner({
     return (
       <section className="mx-auto max-w-6xl px-4 py-6">
         <Reveal>
-          <div className="rounded-2xl border border-amber/30 bg-gradient-to-r from-[#fff6e8] to-[#f3ebe0] px-5 py-5 sm:px-8 sm:py-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
-            <div className="flex gap-3 items-start">
-              <Sparkles className="size-6 text-amber shrink-0 mt-0.5" />
-              <div>
-                <p className="font-display text-2xl text-walnut">Warm welcome offer</p>
-                <p className="text-sm text-muted mt-1">
-                  Free delivery when your cart hits {formatPkr(threshold)}. Mix kitchen + toys
-                  freely.
-                </p>
-              </div>
+          <div className="rounded-2xl border border-amber/30 bg-gradient-to-r from-[#fff6e8] to-[#f3ebe0] dark:from-[#2a2118] dark:to-[#221a13] px-5 py-5 sm:px-8 sm:py-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+            <div>
+              <p className="font-display text-2xl text-walnut">Free delivery threshold</p>
+              <p className="text-sm text-muted mt-1">
+                Carts over {formatPkr(threshold)} ship free. Mix kitchen and toys in one order.
+              </p>
             </div>
             <Link href="/shop" className="btn btn-primary shrink-0">
               Build a cart
@@ -196,7 +235,7 @@ export function HomeDealBanner({
             </p>
             <h2 className="mt-2 font-display text-3xl text-walnut">{product.name}</h2>
             <p className="mt-2 text-muted text-sm">
-              Was {formatPkr(product.compareAt)} · now {formatPkr(product.pricePkr)} — you keep{" "}
+              Was {formatPkr(product.compareAt)}, now {formatPkr(product.pricePkr)}. You keep{" "}
               {formatPkr(save)}.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
@@ -217,7 +256,7 @@ export function HomeDealBanner({
 export function HomeCraftStory() {
   const steps = [
     { n: "01", t: "Choose your piece", d: "Browse kitchen, toys, or gift sets with honest sizes." },
-    { n: "02", t: "Checkout your way", d: "COD, JazzCash, or Easypaisa — we confirm on WhatsApp." },
+    { n: "02", t: "Checkout your way", d: "COD, JazzCash, or Easypaisa. We confirm on WhatsApp." },
     { n: "03", t: "Use it every day", d: "Oil, dry, and enjoy wood that softens into the home." },
   ];
   return (
@@ -231,8 +270,8 @@ export function HomeCraftStory() {
         </h2>
         <p className="mt-3 text-muted leading-relaxed">
           WoodCraft keeps the list short so each board, bowl, and toy gets a clear photo,
-          real measurements, and packaging that survives the courier. Led by Amir Rashid —
-          small team, careful hands.
+          real measurements, and packaging that survives the courier. Led by Amir Rashid.
+          Small team, careful hands.
         </p>
       </Reveal>
       <div className="mt-8 grid md:grid-cols-3 gap-4">
@@ -259,9 +298,7 @@ export function HomeTestimonials({ items }: { items: Testimonial[] }) {
           <h2 className="font-display text-3xl sm:text-4xl text-walnut">
             What customers say
           </h2>
-          <p className="mt-2 text-sm text-walnut-soft">
-            Real homes · real WhatsApp threads
-          </p>
+          <p className="mt-2 text-sm text-walnut-soft">From real WhatsApp orders across Pakistan</p>
         </Reveal>
         <div className="mt-7 grid sm:grid-cols-3 gap-4">
           {items.map((t, i) => (
@@ -274,7 +311,7 @@ export function HomeTestimonials({ items }: { items: Testimonial[] }) {
                 </div>
                 <p className="mt-3 text-sm leading-relaxed flex-1">“{t.quote}”</p>
                 <footer className="mt-4 text-xs font-semibold text-muted">
-                  {t.name} · {t.city}
+                  {t.name}, {t.city}
                 </footer>
               </blockquote>
             </Reveal>
@@ -291,7 +328,7 @@ export function HomeFaq() {
       <Reveal className="max-w-xl">
         <h2 className="font-display text-3xl text-walnut">Questions, answered</h2>
         <p className="mt-2 text-sm text-walnut-soft">
-          Still unsure? WhatsApp us — we reply with photos, sizes, and ETA.
+          Still unsure? WhatsApp us with photos, sizes, and your city.
         </p>
       </Reveal>
       <div className="mt-6 max-w-3xl space-y-3">
@@ -331,16 +368,19 @@ export function HomeWhatsAppCta({ whatsappNumber }: { whatsappNumber: string }) 
               Message WoodCraft on WhatsApp for sizes, gifts, and custom sets
             </h2>
             <p className="mt-2 text-[#fff8ef]/80 text-sm max-w-md">
-              Same number for JazzCash / Easypaisa — 0327 5695299
+              Same number for JazzCash / Easypaisa: 0327 5695299
             </p>
           </div>
           <a
-            href={waLink(whatsappNumber, "Hi WoodCraft — I have a question about your wood pieces.")}
+            href={waLink(
+              whatsappNumber,
+              "Hi WoodCraft, I have a question about your wood pieces.",
+            )}
             target="_blank"
             rel="noreferrer"
             className="btn btn-on-dark relative z-[1] shrink-0"
           >
-            <MessageCircle className="size-5" aria-hidden />
+            <WhatsAppIcon className="size-5 text-[#25D366]" aria-hidden />
             Chat on WhatsApp
           </a>
         </div>
@@ -355,11 +395,11 @@ export function HomeFeaturedGrid({ products }: { products: Product[] }) {
       <div className="flex items-end justify-between gap-3 mb-6">
         <div>
           <p className="text-sage-deep text-sm font-semibold uppercase tracking-wide">
-            Picked for you
+            Staff picks
           </p>
           <h2 className="font-display text-3xl text-walnut">Featured pieces</h2>
         </div>
-        <Link href="/shop" className="text-sm font-semibold text-sage-deep">
+        <Link href="/shop" className="text-sm font-semibold text-sage-deep hover:underline">
           View all
         </Link>
       </div>

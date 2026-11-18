@@ -128,9 +128,14 @@ a {
   padding: 0.8rem 1.25rem;
   font-weight: 600;
   font-size: 0.95rem;
-  transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
   border: 1px solid transparent;
   min-height: 48px;
+  cursor: pointer;
 }
 
 .btn:active {
@@ -189,6 +194,63 @@ html.dark .btn-sage {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  transition: box-shadow 220ms ease, border-color 220ms ease, transform 220ms ease;
+}
+
+.card-lift:hover {
+  box-shadow: 0 16px 36px rgba(61, 41, 20, 0.12);
+  border-color: color-mix(in srgb, var(--sage) 35%, var(--border));
+}
+
+html.dark .card-lift:hover {
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+}
+
+.chat-fab {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.chat-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(61, 41, 20, 0.28);
+}
+
+.chat-panel {
+  animation: chatIn 220ms ease;
+}
+
+@keyframes chatIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.page-shell {
+  animation: pageIn 280ms ease;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .input {

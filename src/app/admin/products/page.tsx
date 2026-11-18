@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { formatPkr } from "@/lib/utils";
 import { ProductVisibilityToggle } from "@/components/product-visibility-toggle";
@@ -14,10 +15,17 @@ export default async function AdminProductsPage() {
 
   return (
     <div className="space-y-4">
-      <h1 className="font-display text-3xl text-walnut">Products</h1>
-      <p className="text-sm text-muted">
-        Seeded catalog — edit stock / visibility here. Full image upload can use Cloudinary later.
-      </p>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="font-display text-3xl text-walnut">Products</h1>
+          <p className="text-sm text-muted mt-1">
+            Edit stock and visibility. Import a full sheet from Daraz under Import.
+          </p>
+        </div>
+        <Link href="/admin/import" className="btn btn-primary text-sm">
+          Import Excel
+        </Link>
+      </div>
       <div className="space-y-3">
         {products.map((p) => (
           <div key={p.id} className="card p-3 flex flex-wrap gap-3 items-center">

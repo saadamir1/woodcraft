@@ -30,7 +30,7 @@ export function ProductCard({ product, index = 0 }: Props) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.35, delay: Math.min(index * 0.04, 0.24) }}
-      className="card overflow-hidden group"
+      className="card card-lift overflow-hidden group"
     >
       <Link
         href={`/product/${product.slug}`}
@@ -68,7 +68,9 @@ export function ProductCard({ product, index = 0 }: Props) {
               </span>
             ) : null}
           </div>
-          <p className="mt-1 text-xs font-semibold text-sage-deep">View details →</p>
+          <p className="mt-1 text-xs font-semibold text-sage-deep opacity-0 group-hover:opacity-100 transition-opacity">
+            View details
+          </p>
         </Link>
         <button
           type="button"

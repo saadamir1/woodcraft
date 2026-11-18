@@ -76,7 +76,7 @@ export function ProductPromiseStrip({
     {
       icon: Clock3,
       title: "WhatsApp confirm",
-      body: "We message before packing — change address easily",
+      body: "We message before packing so you can fix the address",
     },
     {
       icon: Droplets,

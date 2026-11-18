@@ -46,10 +46,22 @@
 - After: home ~0.5–1.2s; about ~170ms; ISR 60s + query cache
 - Lazy cart/chat/WA; AVIF/WebP; LCP hero server Image
 
-## 11. Next (you)
+## 11. 2026-11-18 — UI polish + dark mode
+- Banded “divider” lines were a bug (section bg cutting cards) — removed
+- Blank WhatsApp CTA = cream text on cream button — fixed
+- Stronger muted/contrast; moon/sun dark mode toggle
+
+## 12. 2026-11-18 — Launch polish + Excel import
+- Storefront: how-to-order strip, shop chips, card hover, page fade, natural copy
+- Chat: Roman Urdu FAQ chips, smarter local answers, cleaner FAB panel
+- Admin `/admin/import`: flexible Excel/CSV column map for Daraz-style sheets
+- WhatsApp product links use live Vercel URL (not woodcraft.pk)
+
+## 13. Next (you)
 - Meta Pixel IDs + Groq key
 - Custom domain / commercial plan if selling
 - Optional WhatsApp Business app on same number
 - Gateway merchant application
-- Daraz store import (need shop URL)
+- Daraz sheet import (upload export file in Admin → Import)
+- Replace dark spice-box photo if needed
 - Rotate Neon DB password (was shown in CLI earlier)

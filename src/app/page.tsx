@@ -7,11 +7,11 @@ import {
   HomeDealBanner,
   HomeFaq,
   HomeFeaturedGrid,
+  HomeHowToOrder,
   HomeTestimonials,
   HomeTrust,
   HomeWhatsAppCta,
 } from "@/components/home-enrichment";
-import { Reveal } from "@/components/reveal";
 import {
   getCachedCategories,
   getCachedDealProduct,
@@ -48,20 +48,19 @@ export default async function HomePage() {
       : null;
 
   return (
-    <div>
+    <div className="page-shell">
       <section className="relative overflow-hidden">
         <div className="relative mx-auto max-w-6xl px-4 py-12 sm:py-16 lg:py-20 grid lg:grid-cols-2 gap-10 items-center">
-          {/* LCP text + image stay outside motion so first paint is not delayed */}
           <div>
             <p className="text-sage-deep font-semibold text-sm tracking-wide uppercase">
-              Pakistan · COD friendly · Gobox
+              Pakistan · COD · Gobox
             </p>
             <h1 className="mt-3 font-display text-4xl sm:text-5xl lg:text-6xl text-walnut leading-[1.05]">
               Wood that feels like home
             </h1>
             <p className="mt-4 text-muted text-base sm:text-lg max-w-md leading-relaxed">
-              Kitchen boards, spice boxes, trays, and gentle wooden toys — warm pieces for
-              everyday living, with COD and WhatsApp support.
+              Kitchen boards, spice boxes, trays, and gentle wooden toys for everyday
+              living. Order with COD or WhatsApp.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/shop" className="btn btn-primary">
@@ -84,6 +83,7 @@ export default async function HomePage() {
       </section>
 
       <HomeTrust freeDeliveryThresholdPkr={settings.freeDeliveryThresholdPkr} />
+      <HomeHowToOrder />
       <HomeDealBanner
         product={deal}
         threshold={settings.freeDeliveryThresholdPkr}
