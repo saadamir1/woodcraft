@@ -50,7 +50,7 @@ export function BottomNav({ whatsappNumber }: { whatsappNumber: string }) {
           ) : null}
         </button>
         <a
-          href={waLink(whatsappNumber, "Hi WoodCraft — I have a question.")}
+          href={waLink(whatsappNumber, "Hi WoodCraft, I have a question.")}
           target="_blank"
           rel="noreferrer"
           className={cn(item(false), "justify-center")}

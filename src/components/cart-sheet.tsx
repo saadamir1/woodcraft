@@ -12,8 +12,8 @@ export function CartSheet({ whatsappNumber }: { whatsappNumber: string }) {
   const total = subtotal();
   const waText =
     items.length === 0
-      ? "Hi WoodCraft — I'd like to order."
-      : `Hi WoodCraft — I'd like to order:\n${items
+      ? "Hi WoodCraft, I'd like to order."
+      : `Hi WoodCraft, I'd like to order:\n${items
           .map((i) => `• ${i.name} × ${i.qty}\n  ${productUrl(i.slug)}`)
           .join("\n")}\nSubtotal: ${formatPkr(total)}`;
 

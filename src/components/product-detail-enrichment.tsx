@@ -121,7 +121,7 @@ export function ProductLongCopy({
         <h2 className="font-display text-3xl text-walnut">About this piece</h2>
         <p className="mt-3 text-muted leading-relaxed">{description}</p>
         <p className="mt-4 text-muted leading-relaxed">
-          {name} is finished for daily Pakistani kitchens and playrooms — wipe spills
+          {name} is finished for daily Pakistani kitchens and playrooms. Wipe spills
           promptly, avoid dishwashers, and keep it away from standing water. Small marks
           are part of honest wood; they soften into character with use.
         </p>
@@ -141,7 +141,7 @@ export function ProductLongCopy({
               Returns
             </summary>
             <p className="mt-2 text-sm text-muted leading-relaxed">
-              Damaged or wrong item? WhatsApp photos within 48 hours — we sort a replace or
+              Damaged or wrong item? WhatsApp photos within 48 hours. We sort a replace or
               refund path quickly. See our returns policy for full terms.
             </p>
           </details>
@@ -151,7 +151,7 @@ export function ProductLongCopy({
             </summary>
             <p className="mt-2 text-sm text-muted leading-relaxed">
               Pair a board with a spice box or coaster set for a warm house gift. Add a
-              note at checkout — we&apos;ll keep packaging presentable.
+              note at checkout and we&apos;ll keep packaging presentable.
             </p>
           </details>
         </div>

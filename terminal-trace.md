@@ -17,3 +17,5 @@
 - Build: `prepare-prod-schema.mjs` + `prisma db push` + seed (skip if products exist)
 - GitHub (personal): https://github.com/saadamir1/woodcraft — Vercel git connected; push `master` auto-deploys
 - gh CLI: `D:\MYAPPS\tools\gh\gh.exe` (logged in as saadamir1)
+- 2026-11-18: `xlsx` added for Admin Import; local `npm run dev` on :3001 for FE test
+- Admin Import: `/admin/import` (parse + commit APIs)

@@ -180,33 +180,36 @@ export async function POST(req: Request) {
   }
 
   const faq = localFaq(message);
+  const wantProducts = !faq || Boolean(faq.search);
   const terms = expandTerms(faq?.search ?? message);
 
-  const products = await prisma.product.findMany({
-    where: {
-      visible: true,
-      OR:
-        terms.length === 0
-          ? undefined
-          : terms.flatMap((t) => [
-              { name: { contains: t } },
-              { description: { contains: t } },
-              { material: { contains: t } },
-              { category: { name: { contains: t } } },
-            ]),
-    },
-    take: 4,
-    orderBy: [{ featured: "desc" }, { updatedAt: "desc" }],
-    select: {
-      id: true,
-      slug: true,
-      name: true,
-      pricePkr: true,
-      imageUrl: true,
-      stock: true,
-      description: true,
-    },
-  });
+  const products = wantProducts
+    ? await prisma.product.findMany({
+        where: {
+          visible: true,
+          OR:
+            terms.length === 0
+              ? undefined
+              : terms.flatMap((t) => [
+                  { name: { contains: t } },
+                  { description: { contains: t } },
+                  { material: { contains: t } },
+                  { category: { name: { contains: t } } },
+                ]),
+        },
+        take: 4,
+        orderBy: [{ featured: "desc" }, { updatedAt: "desc" }],
+        select: {
+          id: true,
+          slug: true,
+          name: true,
+          pricePkr: true,
+          imageUrl: true,
+          stock: true,
+          description: true,
+        },
+      })
+    : [];
 
   const productPayload = products.map((p) => ({
     id: p.id,
@@ -216,15 +219,9 @@ export async function POST(req: Request) {
     imageUrl: p.imageUrl,
   }));
 
-  if (faq && !process.env.GROQ_API_KEY) {
-    return NextResponse.json({ reply: faq.reply, products: productPayload });
-  }
-
-  if (faq && (!process.env.GROQ_API_KEY || faq.search === undefined)) {
-    // Instant FAQ for COD / delivery / wallets even when Groq exists
-    if (!faq.search) {
-      return NextResponse.json({ reply: faq.reply, products: productPayload });
-    }
+  // Instant FAQ for COD / delivery / wallets (no random product cards)
+  if (faq && !faq.search) {
+    return NextResponse.json({ reply: faq.reply, products: [] });
   }
 
   const catalog = products

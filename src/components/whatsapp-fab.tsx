@@ -18,8 +18,8 @@ export function WhatsAppFab({
   if (pathname.startsWith("/admin") || cartOpen) return null;
 
   const text = productHint
-    ? `Hi WoodCraft — I'm interested in ${productHint}`
-    : "Hi WoodCraft — I have a question about your wooden products.";
+    ? `Hi WoodCraft, I'm interested in ${productHint}`
+    : "Hi WoodCraft, I have a question about your wooden products.";
 
   return (
     <a

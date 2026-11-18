@@ -72,7 +72,7 @@ export function AddToCartSticky({
         <a
           href={waLink(
             whatsappNumber,
-            `Hi WoodCraft — I'd like to order: ${product.name} (${formatPkr(product.pricePkr)}) ${productUrl(product.slug)}`,
+            `Hi WoodCraft, I'd like to order: ${product.name} (${formatPkr(product.pricePkr)}) ${productUrl(product.slug)}`,
           )}
           target="_blank"
           rel="noreferrer"

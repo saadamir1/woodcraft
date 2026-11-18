@@ -46,7 +46,7 @@ export default async function OrderSuccessPage({
           </Link>
         </>
       ) : (
-        <p className="mt-3 text-muted">Thanks — you can track with your order number and phone.</p>
+        <p className="mt-3 text-muted">Thanks. You can track with your order number and phone.</p>
       )}
       <div className="mt-4">
         <Link href="/shop" className="text-sm font-semibold text-sage-deep">
